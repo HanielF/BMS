@@ -15,6 +15,24 @@ public class Book {
 		setId(bid);
 		setCnt(bcnt);
 	}
+	
+	public void setBook(String bname, int bid, String bauthor, float bprice, int bcnt)
+	{
+		setBookname(bname);
+		setId(bid);
+		setAuthor(bauthor);
+		setPrice(bprice);
+		setCnt(bcnt);
+	}
+
+	public void setBook(Book boo)
+	{
+		setBookname(boo.getBookname());
+		setId(boo.getId());
+		setAuthor(boo.getAuthor());
+		setPrice(boo.getPrice());
+		setCnt(boo.getCnt());
+	}
 
 	public String getBookname() {
 		return bookname;
@@ -56,4 +74,7 @@ public class Book {
 		this.cnt = cnt;
 	}
 	
+	public void printBook() {
+		System.out.println()
+	}
 }  
