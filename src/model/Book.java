@@ -1,4 +1,5 @@
 package model;
+import java.util.Formatter;
 
 public class Book {  
 	private String bookname;	//name of the book
@@ -7,6 +8,8 @@ public class Book {
 	private int bookid;			//id of the book
 	private int cnt;			//number of the book left
 	
+	
+	public Book() {}
 	public Book(String bname,int bid,String bauthor,float bprice,int bcnt)
 	{
 		bookname=bname;
@@ -75,6 +78,7 @@ public class Book {
 	}
 	
 	public void printBook() {
-		System.out.println()
+	//	Formatter fa = new Formatter(System.out);
+		System.out.format("ID: %-8dName: %-8sAuthor: %-9sPrice: %-8.2f Count: %d\n",bookid,bookname,author,price,cnt);
 	}
 }  
