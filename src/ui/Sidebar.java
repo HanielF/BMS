@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Sidebar implements TreeSelectionListener {
 	private JTree tree;
-	private JScrollPane scrollPane=new JScrollPane();
+	public JScrollPane scrollPane=new JScrollPane();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Sidebar() {
@@ -25,8 +25,14 @@ public class Sidebar implements TreeSelectionListener {
 		hstable1.put("用户管理", s3);
 		
 		tree = new JTree(hstable1);
-		getScrollPane().setPreferredSize(new Dimension(150,400));
-		getScrollPane().setViewportView(tree);
+		scrollPane.setPreferredSize(new Dimension(130,400));
+		scrollPane.setViewportView(tree);
+		
+		//展开所有节点
+		for(int i=0;i<tree.getRowCount();i++) {
+			tree.expandRow(i);
+		}
+		
 		tree.addTreeSelectionListener(this);
 		//tree.putClientProperty(“Jtree.lineStyle”,  “None”);  
 	}
@@ -38,13 +44,22 @@ public class Sidebar implements TreeSelectionListener {
 		
 		if(node==null) 
 			return;
-		if(node.isLeaf())//叶子节点的监听
-			   System.out.println(node.toString());
+		//叶子节点的监听
+		if(node.isLeaf()) {
+			if(node.toString().equals("所有书籍")){	
+				MainPage.cl.show(MainPage.jp,"sbs" );
+			}
+			else if(node.toString().equals("个人资料")) {
+				MainPage.cl.show(MainPage.jp,"jb1");
+			}
+			else if(node.toString().equals("所有用户")) {
+				MainPage.cl.show(MainPage.jp, "sus");
+			}
+			else {
+				MainPage.cl.show(MainPage.jp,"jl1");
+			}
+		}
 		
 	}
 
-	public JScrollPane getScrollPane() {
-		return scrollPane;
-	}
-	
 }

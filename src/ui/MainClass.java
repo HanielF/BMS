@@ -6,13 +6,21 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.io.*;
+import java.sql.ResultSet;
+
 import jdbc.Database;
 import operation.*;
 
 public class MainClass {
 	public static ArrayList<Book> books = new ArrayList<Book>();
 	public static ArrayList<User> users = new ArrayList<User>();
-	static Formatter formatter= new Formatter(System.out);
+	public static Formatter formatter= new Formatter(System.out);
+	public static Database db = new Database();
+	public static MainPage mp = new MainPage();
+	
+	public MainClass() {
+		mp.jf.setVisible(true);
+	}
 	
 	public void showMenu() {
 		formatter.format("Please choose an operation to continue\n");
@@ -52,8 +60,7 @@ public class MainClass {
 	
 	public static void main(String []args) {
 		MainClass mc = new MainClass();
-		MainPage mp = new MainPage();
-		LoginPage lp=new LoginPage();
+		//LoginPage lp = new LoginPage();
 		
 		/*JFrame f=new JFrame();
 		Sidebar sbar=new Sidebar();

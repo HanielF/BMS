@@ -9,25 +9,50 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MainPage extends JFrame {
-	private Sidebar sbar;
-	private JFrame frame;
+public class MainPage {
+	public static JFrame jf = new JFrame();
+	public static CardLayout cl = new CardLayout();
+	public static JPanel jp= new JPanel(cl);
+	public static Sidebar sbar = new Sidebar();
+	public static ShowBooks sbs = new ShowBooks();
+	public static ShowUsers sus = new ShowUsers();
+	//public static JScrollPane jsp = new JScrollPane();
+	public JLabel jl1=new JLabel("WHAT");
+	public JButton jb1=new JButton("fuck");
 	
 	public MainPage() {
-		frame = new JFrame("Book Manager System");
-		sbar = new Sidebar();
-		Container contentPane = frame.getContentPane();//因为JFrame不可以直接添加，并且布局也是通过contentPane设置
-		contentPane.add(sbar.getScrollPane(),BorderLayout.WEST);
-		contentPane.add(new TextField(),BorderLayout.CENTER);
+		initJsp();
 		
-		frame.pack();
-		frame.setVisible(true);
-		frame.setSize(400, 600);
+		//因为JFrame不可以直接添加，并且布局也是通过contentPane设置	
+		Container contentPane = jf.getContentPane();
+		contentPane.add(sbar.scrollPane,BorderLayout.WEST);
+		contentPane.add(jp,BorderLayout.CENTER);
 		
-		frame.addWindowListener(new WindowAdapter() {
+		//set the page in center of screen
+	    Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+	    jf.setSize(650,500);
+	    jf.setLocation(scr.width/2-jf.getWidth()/2,scr.height/2-jf.getHeight()/2);  
+	    
+	    jf.setTitle("Book Manager System");
+		jf.pack();
+		jf.setVisible(false);
+		
+	    jf.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
+	
+	public void initJsp() {
+		jp.add("sbs",sbs.jsp);
+		jp.add("sus",sus.jsp);
+		jp.add("jl1",jl1);
+		jp.add("jb1",jb1);
+	}
+	
+	public static void next() {
+		cl.next(jp);
+	}
+	
 }
