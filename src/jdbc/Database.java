@@ -13,8 +13,8 @@ import javax.swing.WindowConstants;
 import ui.LoginPage;
 
 public class Database {
-	public static String driver = "com.mysql.cj.jdbc.Driver" ;   //×îĞÂ¹Ù·½Ö§³Ö
-	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //Ê¹ÓÃgmt+8Ê±Çø²¢ÇÒÉèÖÃuseSSL=false
+	public static String driver = "com.mysql.cj.jdbc.Driver" ;   //æœ€æ–°å®˜æ–¹æ”¯æŒ
+	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //ä½¿ç”¨gmt+8æ—¶åŒºå¹¶ä¸”è®¾ç½®useSSL=false
     private static String usr ;  
     private static String pwd ;   
   
@@ -26,7 +26,7 @@ public class Database {
     	usr= "root";
     	pwd=" gabirel ";
     	try {
-    		Class.forName (driver);  //Á¬½Ó
+    		Class.forName (driver);  //è¿æ¥
     		System.out.println("success to load MySQL driver");
     	} catch (ClassNotFoundException e) {    
     		System.out.println ("error! Class not found!");  
@@ -34,12 +34,12 @@ public class Database {
     	}  
     }
     
-    //Èç¹ûÓĞÆäËûÊı¾İ¿âÕË»§
+    //å¦‚æœæœ‰å…¶ä»–æ•°æ®åº“è´¦æˆ·
     public Database(String dbusr,String dbpwd) {  
     	usr= dbusr;
     	pwd=dbpwd;
     	try {
-    		Class.forName (driver);  //Á¬½Ó
+    		Class.forName (driver);  //è¿æ¥
     		System.out.println("success to load MySQL driver");
     	} catch (ClassNotFoundException e) {    
     		System.out.println ("error! Class not found!");  
@@ -48,7 +48,7 @@ public class Database {
     }
     
 
-    //ÅĞ¶ÏÊÇ·ñÓĞÕâ¸öÓÃ»§£¬ÓÃÓÚµÇÂ½
+    //åˆ¤æ–­æ˜¯å¦æœ‰è¿™ä¸ªç”¨æˆ·ï¼Œç”¨äºç™»é™†
     public Boolean loginJudge(String id,String upwd) {
     	Connection con=null;  
     	Statement stmt=null; 
@@ -56,8 +56,8 @@ public class Database {
     	Boolean flag=false;
     	
     	try {
-    		con = DriverManager.getConnection (url, usr, pwd);//»ñµÃconnection¶ÔÏó
-    		stmt = con.createStatement ();  //»ñµÃstatement¶ÔÏó
+    		con = DriverManager.getConnection (url, usr, pwd);//è·å¾—connectionå¯¹è±¡
+    		stmt = con.createStatement ();  //è·å¾—statementå¯¹è±¡
     		rs = stmt.executeQuery ("select * from users where uid="+id); 
     		rs.next();
     		if(rs.getString(2).equals(id)&&rs.getString(3).equals(upwd)) {
@@ -92,15 +92,15 @@ public class Database {
     
     
     @SuppressWarnings("finally")
-    //ÕâÀï²»¿ÉÒÔÖ±½Ó·µ»Ø¾Ö²¿ResultSet£¬»á±»Ïú»Ù
+    //è¿™é‡Œä¸å¯ä»¥ç›´æ¥è¿”å›å±€éƒ¨ResultSetï¼Œä¼šè¢«é”€æ¯
 	public ArrayList dbGet(String query) {
     	Connection con=null;  
     	Statement stmt=null; 
     	ResultSet rs =null;
     	ArrayList arr = new ArrayList();
     	try {   
-    		con = DriverManager.getConnection (url, usr, pwd);//»ñµÃconnection¶ÔÏó
-    		stmt = con.createStatement();  //»ñµÃstatement¶ÔÏó
+    		con = DriverManager.getConnection (url, usr, pwd);//è·å¾—connectionå¯¹è±¡
+    		stmt = con.createStatement();  //è·å¾—statementå¯¹è±¡
     		rs = stmt.executeQuery (query);
     		
     		ResultSetMetaData rsmd = rs.getMetaData();
