@@ -1,12 +1,22 @@
 package jdbc;
-import java.sql.*;  
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.sql.*;
+import java.util.*;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
+
+import ui.LoginPage;
 
 public class Database {
 	public static String driver = "com.mysql.cj.jdbc.Driver" ;   //最新官方支持
 	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
     private static String usr ;  
-    private static String pwd ;  
-    private String sql;
+    private static String pwd ;   
   
     public void setUsr(String dbusr) {
     	usr=dbusr;
@@ -24,6 +34,7 @@ public class Database {
     	}  
     }
     
+    //如果有其他数据库账户
     public Database(String dbusr,String dbpwd) {  
     	usr= dbusr;
     	pwd=dbpwd;
@@ -36,36 +47,100 @@ public class Database {
     	}  
     }
     
-    
-    @SuppressWarnings("finally")
-	public ResultSet dbGet() {
-    	Connection con;  
-    	Statement stmt;   
-    	ResultSet rs = null;  
 
-    	try {   
+    //判断是否有这个用户，用于登陆
+    public Boolean loginJudge(String id,String upwd) {
+    	Connection con=null;  
+    	Statement stmt=null; 
+    	ResultSet rs = null;  
+    	Boolean flag=false;
+    	
+    	try {
     		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
     		stmt = con.createStatement ();  //获得statement对象
-    		rs = stmt.executeQuery ("select * from books"); 
-    		
-    		//Test function
-    		while (rs.next ()) {  
-    			System.out.print (rs.getString (1)+"\t");   
-			    System.out.print (rs.getString (2));  
-			    System.out.println();
-    		}  
-    		con.close();    		
-    	} 
-    	catch (SQLException e) {  
-    		// handle any errors
-    	    System.out.println("SQLException: " + e.getMessage());
-    	    System.out.println("SQLState: " + e.getSQLState());
-    	    System.out.println("VendorError: " + e.getErrorCode()); 
-    		System.exit(0);
+    		rs = stmt.executeQuery ("select * from users where uid="+id); 
+    		rs.next();
+    		if(rs.getString(2).equals(id)&&rs.getString(3).equals(upwd)) {
+    				flag=true;
+    		}
+    		else {
+    			JDialog jd_login=new JDialog(LoginPage.jf,"Login Error");
+    			jd_login.setVisible(true);
+    			jd_login.setBounds(600,350,300,150);
+    			Container dcon = jd_login.getContentPane();
+    			
+    			JLabel jb = new JLabel("      User Account or Password wrong!");
+    			jb.setFont(new Font("Lucida Family",Font.PLAIN,15));
+    			dcon.add(jb,BorderLayout.CENTER);
+    			//jd_login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    		}
+    	}
+    	catch (SQLException e) {
+    		showSQLError(e);	
     	}
     	finally {
-    		return rs;
+			try {
+				if(con!=null)con.close();
+				if(stmt!=null)stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
+    	return flag;
+    }
+    
+    
+    @SuppressWarnings("finally")
+    //这里不可以直接返回局部ResultSet，会被销毁
+	public ArrayList dbGet(String query) {
+    	Connection con=null;  
+    	Statement stmt=null; 
+    	ResultSet rs =null;
+    	ArrayList arr = new ArrayList();
+    	try {   
+    		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
+    		stmt = con.createStatement();  //获得statement对象
+    		rs = stmt.executeQuery (query);
+    		
+    		ResultSetMetaData rsmd = rs.getMetaData();
+    		int colCnt = rsmd.getColumnCount();
+    		
+    		while(rs.next()) {
+    			HashMap hmp = new HashMap();
+    			for(int i = 1;i<=colCnt;i++) {
+    				hmp.put(rsmd.getColumnName(i), rs.getObject(i));
+    			}
+    			arr.add(hmp);		
+    		}
+    	} 
+    	catch (SQLException e) {  
+    		showSQLError(e);
+    	}
+    	finally {
+			try {
+				if(con!=null)con.close();
+				if(stmt!=null)stmt.close();
+				if(rs!=null)rs.close();
+			} 
+			catch (SQLException e) {
+				showSQLError(e);
+			}
+			return arr;
+    	}
+    }
+    
+    
+    public void showSQLError(SQLException e) {
+		JDialog jd_sql=new JDialog(LoginPage.jf,"SQL Error");
+		jd_sql.setVisible(true);
+		jd_sql.setBounds(600,350,300,150);
+		Container jd_sql_con = jd_sql.getContentPane();
+		
+		jd_sql_con.setLayout(new BorderLayout());
+		jd_sql_con.add(new JLabel("  SQLException: " + e.getMessage()),BorderLayout.NORTH);
+		jd_sql_con.add(new JLabel("  SQLState: " + e.getSQLState()),BorderLayout.CENTER);
+		jd_sql_con.add(new JLabel("  VendorError: " + e.getErrorCode()),BorderLayout.SOUTH);
     }
 
 }
