@@ -13,13 +13,13 @@ import javax.swing.WindowConstants;
 import ui.LoginPage;
 
 public class Database {
-	public static String driver = "com.mysql.cj.jdbc.Driver" ;   //最新官方支持
+	public static String driver = "org.mariadb.jdbc.Driver" ;  
 	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
     private static String usr ;  
     private static String pwd ;   
   
     public void setUsr(String dbusr) {
-    	usr=dbusr;
+    	usr=dbusr; 
     }
     
     public Database() {  
