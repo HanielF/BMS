@@ -3,7 +3,7 @@ package ui;
 import javax.swing.*;
 
 import jdbc.Database;
-import ui.SignUpPage.SubmitActionListener;
+import ui.SignUp.SubmitActionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SignUpPage {
+public class SignUp {
 	public static JFrame jf=new JFrame("Sign Up Page");
 	private JPanel jp_main;
 	
@@ -110,7 +110,7 @@ public class SignUpPage {
 
 	}
 	
-	public SignUpPage() {
+	public SignUp() {
 		drawMain();
 		initMain();
         initFrame();
