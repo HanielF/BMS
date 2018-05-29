@@ -28,13 +28,14 @@ public class ShowBooks {
 			Iterator ait = arr.iterator();
 			while(ait.hasNext()) {
 				Map map = (Map)ait.next();
-				Iterator iter = map.entrySet().iterator();
 				Vector tmp = new Vector();
-				while(iter.hasNext()) {
-					Map.Entry entry = (Map.Entry) iter.next();
-					Object val = entry.getValue();
-					tmp.add(val.toString());
-				}
+
+				tmp.add(map.get("bname"));
+				tmp.add(map.get("author"));
+				tmp.add(map.get("price"));
+				tmp.add(map.get("bid"));
+				tmp.add(map.get("cnt"));
+				
 				rowData.add(tmp);
 			}
 		} catch (Exception e) {
