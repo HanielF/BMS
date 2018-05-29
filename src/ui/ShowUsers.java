@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.*;
+
+import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -45,6 +47,7 @@ public class ShowUsers {
 		jt = new JTable(rowData,columnNames);
 		jsp = new JScrollPane(jt);
 		
+		jsp.setPreferredSize(new Dimension(650,550));
 		jsp.setVisible(true);
 		//jsp.setPreferredSize(new Dimension(MainClass.mp.getWidth()-130,MainClass.mp.getHeight()));
 	}

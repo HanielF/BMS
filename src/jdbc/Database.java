@@ -131,6 +131,32 @@ public class Database {
     }
     
     
+    //update tables
+	public void dbUpdate(String query) {
+    	Connection con=null;  
+    	Statement stmt=null; 
+    	
+    	try {   
+    		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
+    		stmt = con.createStatement();  //获得statement对象
+    		stmt.executeUpdate (query);
+    	} 
+    	catch (SQLException e) {  
+    		showSQLError(e);
+    	}
+    	finally {
+			try {
+				if(con!=null)con.close();
+				if(stmt!=null)stmt.close();
+			} 
+			catch (SQLException e) {
+				showSQLError(e);
+			}
+    	}
+    }
+    
+    
+    
     public void showSQLError(SQLException e) {
 		JDialog jd_sql=new JDialog(LoginPage.jf,"SQL Error");
 		jd_sql.setVisible(true);

@@ -16,7 +16,8 @@ public class MainClass {
 	public static void main(String []args) {
 		MainClass mc = new MainClass();
 		//LoginPage lp = new LoginPage();
-		
+		//ForgetPwdPage fp = new ForgetPwdPage();
+		//SignUpPage sup = new SignUpPage();
 		/*JFrame f=new JFrame();
 		Sidebar sbar=new Sidebar();
 		f.getContentPane().add(sbar.scrollPane,BorderLayout.WEST);

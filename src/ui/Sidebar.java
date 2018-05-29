@@ -25,7 +25,7 @@ public class Sidebar implements TreeSelectionListener {
 		hstable1.put("用户管理", s3);
 		
 		tree = new JTree(hstable1);
-		scrollPane.setPreferredSize(new Dimension(130,400));
+		scrollPane.setPreferredSize(new Dimension(150,550));
 		scrollPane.setViewportView(tree);
 		
 		//展开所有节点
