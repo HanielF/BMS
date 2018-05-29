@@ -13,7 +13,7 @@ public class MainPage {
 	public static JFrame jf = new JFrame();
 	public static CardLayout cl = new CardLayout();
 	public static JPanel jp= new JPanel(cl);
-
+  
 	public JLabel jl1=new JLabel("WHAT");
 	public JButton jb1=new JButton("fuck");
 	
@@ -55,6 +55,7 @@ public class MainPage {
 		jp.setSize(width-sbar.getWidth(),height-Banner.getHeight());
 		jp.add("sbs",sbs.jsp);
 		jp.add("sus",sus.jsp);
+		jp.add("bbr",bbr.jp_bor_ret);
 		jp.add("jl1",jl1);
 		jp.add("jb1",jb1);
 	}
