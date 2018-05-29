@@ -30,7 +30,7 @@ public class MainPage {
 		
 		//set the page in center of screen
 	    Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
-	    jf.setSize(650,500);
+	    jf.setSize(800,500);
 	    jf.setLocation(scr.width/2-jf.getWidth()/2,scr.height/2-jf.getHeight()/2);  
 	    
 	    jf.setTitle("Book Manager System");
@@ -45,6 +45,7 @@ public class MainPage {
 	}
 	
 	public void initJsp() {
+		jp.setSize(650,jf.getHeight());
 		jp.add("sbs",sbs.jsp);
 		jp.add("sus",sus.jsp);
 		jp.add("jl1",jl1);

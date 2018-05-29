@@ -45,6 +45,7 @@ public class ShowBooks {
 		jt = new JTable(rowData,columnNames);
 		jsp = new JScrollPane(jt);
 		
+		jsp.setPreferredSize(new Dimension(650,550));
 		jsp.setVisible(true);
 		//jsp.setPreferredSize(new Dimension(MainClass.mp.getWidth()-130,MainClass.mp.getHeight()));
 	}
