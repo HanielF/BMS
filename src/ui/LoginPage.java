@@ -60,7 +60,7 @@ public class LoginPage {
         
         jb_register.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		MainClass.su.jf.setVisible(true);
         	}
         });
 	}
@@ -68,17 +68,31 @@ public class LoginPage {
 	public void showLoginError() {
 		JDialog jd = new JDialog(jf);
 		jd.setTitle("Login Error");
-		jd.setSize(300,140);
+		jd.setSize(350,150);
         Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
         jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
         jd.setVisible(true);
-        jd.setLayout(new BorderLayout());
+        jd.setLayout(null);
         
         JLabel jl = new JLabel("Account Or Password Error!",JLabel.CENTER);
-        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        JButton jb = new JButton("Conform");
         
-        jd.add(jl,BorderLayout.CENTER);
-		
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
 	}
 	
 	public void drawMain() {
