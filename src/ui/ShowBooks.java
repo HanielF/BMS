@@ -8,6 +8,10 @@ import java.util.*;
 public class ShowBooks {
 	private JTable jt;
 	public JScrollPane jsp;
+	
+	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
+	private int height = MainPage.getHeight()-Banner.getHeight();
+	
 	private Vector rowData,columnNames;	
 	private ResultSet rs=null;
 	
@@ -44,11 +48,14 @@ public class ShowBooks {
 		
 		//init jt and jsp
 		jt = new JTable(rowData,columnNames);
-		jsp = new JScrollPane(jt);
+		jt.setFont(new Font("consolas",Font.PLAIN,18));
+		jt.getTableHeader().setPreferredSize(new Dimension(width,27));;
+		jt.getTableHeader().setFont(new Font("consolas",Font.PLAIN,19));
+		jt.setRowHeight(27);
 		
-		jsp.setPreferredSize(new Dimension(650,550));
+		jsp = new JScrollPane(jt);
+		jsp.setPreferredSize(new Dimension(width,height));
 		jsp.setVisible(true);
-		//jsp.setPreferredSize(new Dimension(MainClass.mp.getWidth()-130,MainClass.mp.getHeight()));
 	}
 
 }
