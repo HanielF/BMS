@@ -16,6 +16,7 @@ public class MainPage {
 	public static Sidebar sbar = new Sidebar();
 	public static ShowBooks sbs = new ShowBooks();
 	public static ShowUsers sus = new ShowUsers();
+	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	//public static JScrollPane jsp = new JScrollPane();
 	public JLabel jl1=new JLabel("WHAT");
 	public JButton jb1=new JButton("fuck");
@@ -48,6 +49,7 @@ public class MainPage {
 		jp.setSize(650,jf.getHeight());
 		jp.add("sbs",sbs.jsp);
 		jp.add("sus",sus.jsp);
+		jp.add("bbr",bbr.jp_bor_ret);
 		jp.add("jl1",jl1);
 		jp.add("jb1",jb1);
 	}
