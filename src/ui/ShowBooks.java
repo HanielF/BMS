@@ -28,13 +28,14 @@ public class ShowBooks {
 			Iterator ait = arr.iterator();
 			while(ait.hasNext()) {
 				Map map = (Map)ait.next();
-				Iterator iter = map.entrySet().iterator();
 				Vector tmp = new Vector();
-				while(iter.hasNext()) {
-					Map.Entry entry = (Map.Entry) iter.next();
-					Object val = entry.getValue();
-					tmp.add(val.toString());
-				}
+
+				tmp.add(map.get("bname"));
+				tmp.add(map.get("author"));
+				tmp.add(map.get("price"));
+				tmp.add(map.get("bid"));
+				tmp.add(map.get("cnt"));
+				
 				rowData.add(tmp);
 			}
 		} catch (Exception e) {
@@ -45,6 +46,7 @@ public class ShowBooks {
 		jt = new JTable(rowData,columnNames);
 		jsp = new JScrollPane(jt);
 		
+		jsp.setPreferredSize(new Dimension(650,550));
 		jsp.setVisible(true);
 		//jsp.setPreferredSize(new Dimension(MainClass.mp.getWidth()-130,MainClass.mp.getHeight()));
 	}
