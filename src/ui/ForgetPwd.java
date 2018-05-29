@@ -3,8 +3,8 @@ package ui;
 import javax.swing.*;
 
 import jdbc.Database;
-import ui.ForgetPwdPage.Submit1ActionListener;
-import ui.ForgetPwdPage.Submit2ActionListener;
+import ui.ForgetPwd.Submit1ActionListener;
+import ui.ForgetPwd.Submit2ActionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ForgetPwdPage {
+public class ForgetPwd {
 	public static JFrame jf=new JFrame("Forget Password Page");
 	private JPanel jp_main1;  //main1面板用于获取用户名和ID，并验证是否匹配
 	private JPanel jp_main2;  //main2面板用于获取密保答案和新密码
@@ -130,7 +130,7 @@ public class ForgetPwdPage {
 	}
 	
 	//构造函数
-	public ForgetPwdPage() {
+	public ForgetPwd() {
 		drawMain();
 		initMain1();
         initFrame();
@@ -144,7 +144,8 @@ public class ForgetPwdPage {
             public void paintComponent(Graphics g) {  
                 Graphics2D g2=(Graphics2D)g;   
                 super.paintComponents(g);  
-                Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
+                Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
+                //Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
                 g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
             }  
          }; 
@@ -152,7 +153,8 @@ public class ForgetPwdPage {
              public void paintComponent(Graphics g) {  
                  Graphics2D g2=(Graphics2D)g;   
                  super.paintComponents(g);  
-                 Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
+                 Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
+                 //Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
                  g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
              }  
           }; 
@@ -276,6 +278,6 @@ public class ForgetPwdPage {
 	}
 	
 	public static void main(String[] args) {
-		ForgetPwdPage fp=new ForgetPwdPage();
+		ForgetPwd fp=new ForgetPwd();
 	}
 }
