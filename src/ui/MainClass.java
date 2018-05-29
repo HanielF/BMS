@@ -8,16 +8,24 @@ public class MainClass {
 	//public static Formatter formatter= new Formatter(System.out);
 	public static Database db = new Database();
 	public static MainPage mp = new MainPage();
+	public static ForgetPwd fp = new ForgetPwd();
+	public static LoginPage lp = new LoginPage();
+	public static SignUp su = new SignUp();
 	
 	public MainClass() {
-		mp.jf.setVisible(true);
+		mp.jf.setVisible(false);
+		lp.jf.setVisible(true);
+		fp.jf.setVisible(false);
+		su.jf.setVisible(false);
 	}
 	
 	public static void main(String []args) {
 		MainClass mc = new MainClass();
-		//LoginPage lp = new LoginPage();
+		
+		//mc.db.dbUpdate("insert into books values('boom','zhangle','0.1','1000003',1)");
 		//ForgetPwdPage fp = new ForgetPwdPage();
 		//SignUpPage sup = new SignUpPage();
+		
 		/*JFrame f=new JFrame();
 		Sidebar sbar=new Sidebar();
 		f.getContentPane().add(sbar.scrollPane,BorderLayout.WEST);

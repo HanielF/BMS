@@ -12,6 +12,8 @@ import java.util.*;
 public class Sidebar implements TreeSelectionListener {
 	private JTree tree;
 	public JScrollPane scrollPane=new JScrollPane();
+	private int width = 150;
+	private int height = MainPage.getHeight()-Banner.getHeight();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Sidebar() {
@@ -23,12 +25,12 @@ public class Sidebar implements TreeSelectionListener {
 		hstable1.put("图书管理", s1);
 		hstable1.put("管理员信息", s2);
 		hstable1.put("用户管理", s3);
-		
 		tree = new JTree(hstable1);
-		scrollPane.setPreferredSize(new Dimension(150,550));
+		tree.setFont(new Font("楷体",Font.PLAIN,18));
+		scrollPane.setPreferredSize(new Dimension(width,height));
 		scrollPane.setViewportView(tree);
 		
-		//展开所有节点
+		//extend all nodes
 		for(int i=0;i<tree.getRowCount();i++) {
 			tree.expandRow(i);
 		}
@@ -37,14 +39,14 @@ public class Sidebar implements TreeSelectionListener {
 		//tree.putClientProperty(“Jtree.lineStyle”,  “None”);  
 	}
 	
-	//监听接口函数实现
+
 	public void valueChanged(TreeSelectionEvent e) {
 		//Returns the last path element of the selection.  
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent(); 
 		
 		if(node==null) 
 			return;
-		//叶子节点的监听
+
 		if(node.isLeaf()) {
 			if(node.toString().equals("所有书籍")){	
 				MainPage.cl.show(MainPage.jp,"sbs" );
@@ -62,7 +64,14 @@ public class Sidebar implements TreeSelectionListener {
 				MainPage.cl.show(MainPage.jp,"jl1");
 			}
 		}
-		
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 
 }

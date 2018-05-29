@@ -13,10 +13,11 @@ import javax.swing.WindowConstants;
 import ui.LoginPage;
 
 public class Database {
-	public static String driver = "org.mariadb.jdbc.Driver" ;  
-	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
-    private static String usr ;  
-    private static String pwd ;   
+	private String driver = "org.mariadb.jdbc.Driver" ;  
+	private String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
+    private String usr ;  
+    private String pwd ;   
+    private String cur_user;
   
     public void setUsr(String dbusr) {
     	usr=dbusr; 
@@ -50,6 +51,8 @@ public class Database {
 
     //判断是否有这个用户，用于登陆
     public Boolean loginJudge(String id,String upwd) {
+    	if(id.equals("") || upwd.equals("") || id==null || upwd == null)return false;
+    	
     	Connection con=null;  
     	Statement stmt=null; 
     	ResultSet rs = null;  
@@ -76,7 +79,8 @@ public class Database {
     		}
     	}
     	catch (SQLException e) {
-    		showSQLError(e);	
+    		//showSQLError(e);	
+    		e.printStackTrace();
     	}
     	finally {
 			try {
@@ -94,6 +98,8 @@ public class Database {
     @SuppressWarnings("finally")
     //这里不可以直接返回局部ResultSet，会被销毁
 	public ArrayList dbGet(String query) {
+    	if(query==null) return null;
+    	
     	Connection con=null;  
     	Statement stmt=null; 
     	ResultSet rs =null;
@@ -133,6 +139,7 @@ public class Database {
     
     //update tables
 	public void dbUpdate(String query) {
+		if(query==null)return;
     	Connection con=null;  
     	Statement stmt=null; 
     	
@@ -156,7 +163,6 @@ public class Database {
     }
     
     
-    
     public void showSQLError(SQLException e) {
 		JDialog jd_sql=new JDialog(LoginPage.jf,"SQL Error");
 		jd_sql.setVisible(true);
@@ -168,5 +174,13 @@ public class Database {
 		jd_sql_con.add(new JLabel("  SQLState: " + e.getSQLState()),BorderLayout.CENTER);
 		jd_sql_con.add(new JLabel("  VendorError: " + e.getErrorCode()),BorderLayout.SOUTH);
     }
+
+	public String getCur_user() {
+		return cur_user;
+	}
+
+	public void setCur_user(String cur_user) {
+		this.cur_user = cur_user;
+	}
 
 }

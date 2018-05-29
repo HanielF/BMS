@@ -144,7 +144,8 @@ public class ForgetPwd {
             public void paintComponent(Graphics g) {  
                 Graphics2D g2=(Graphics2D)g;   
                 super.paintComponents(g);  
-                Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
+                Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
+                //Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
                 g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
             }  
          }; 
@@ -152,7 +153,8 @@ public class ForgetPwd {
              public void paintComponent(Graphics g) {  
                  Graphics2D g2=(Graphics2D)g;   
                  super.paintComponents(g);  
-                 Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
+                 Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
+                 //Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
                  g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
              }  
           }; 

@@ -40,15 +40,59 @@ public class LoginPage {
         	public void actionPerformed(ActionEvent e) {
                 id=jtf_usr.getText();
                 pwd=new String(jpf.getPassword());
-                if(MainClass.db.loginJudge(id, pwd)) {
+                if(id.equals("") || pwd.equals(""))
+                	showLoginError();
+                else if(MainClass.db.loginJudge(id, pwd)) {
                 	MainClass.mp.jf.setVisible(true);
-                	jf.setVisible(false);
+                	MainClass.db.setCur_user(id);
+                	jf.dispose();
+                }else {
+                	showLoginError();
                 }
         	}
         });
+        	
+        jb_forget.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		MainClass.fp.jf.setVisible(true);
+        	}
+        });
         
-
-
+        jb_register.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		MainClass.su.jf.setVisible(true);
+        	}
+        });
+	}
+	
+	public void showLoginError() {
+		JDialog jd = new JDialog(jf);
+		jd.setTitle("Login Error");
+		jd.setSize(350,150);
+        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
+        jd.setVisible(true);
+        jd.setLayout(null);
+        
+        JLabel jl = new JLabel("Account Or Password Error!",JLabel.CENTER);
+        JButton jb = new JButton("Conform");
+        
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
 	}
 	
 	public void drawMain() {
@@ -57,7 +101,8 @@ public class LoginPage {
             public void paintComponent(Graphics g) {  
                 Graphics2D g2=(Graphics2D)g;   
                 super.paintComponents(g);  
-                Image image = new ImageIcon("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg").getImage(); 
+                Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
+                //Image image = new ImageIcon("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg").getImage(); 
                 //Image image=Toolkit.getDefaultToolkit().getImage("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg");  
                 g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
             }  
@@ -92,9 +137,9 @@ public class LoginPage {
         jl_pwd.setFont(new Font("consolas",Font.PLAIN,16));
         jpf.setBounds(140,100,190,30);
   
-        jb_register.setBounds(80, 150, 90, 30);
+        jb_register.setBounds(80, 150, 100, 30);
         jb_register.setFont(new Font("Lucida Family",Font.PLAIN,15));
-        jb_login.setBounds(220, 150, 90, 30);
+        jb_login.setBounds(220, 150, 100, 30);
         jb_login.setFont(new Font("Lucida Family",Font.PLAIN,15));
         
         jb_forget.setBounds(115,190,160,30);
