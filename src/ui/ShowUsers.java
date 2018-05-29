@@ -32,7 +32,7 @@ public class ShowUsers {
 
 				tmp.add(map.get("uname"));
 				tmp.add(map.get("uid"));
-				if((int)map.get("ismanager")==1)
+				if(Integer.parseInt(String.valueOf(map.get("ismanager")))==1)
 					tmp.add("Yes");
 				else
 					tmp.add("No");
