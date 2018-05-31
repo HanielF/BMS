@@ -24,8 +24,13 @@ public class MainPage {
 	public static Sidebar sbar = new Sidebar();
 	public static ShowBooks sbs = new ShowBooks();
 	public static ShowUsers sus = new ShowUsers();
+<<<<<<< HEAD
 	public static BookBorrowReturn bbr = new BookBorrowReturn();
 
+=======
+	public static BookBorrowReturn bbr=new BookBorrowReturn();
+	public static AddBooks abs=new AddBooks();
+>>>>>>> ui
 
 	public MainPage() {
 		initJsp();
@@ -57,6 +62,7 @@ public class MainPage {
 		jp.add("sbs",sbs.jsp);
 		jp.add("sus",sus.jsp);
 		jp.add("bbr",bbr.jp_bor_ret);
+		jp.add("abs",abs.jp_addBooks);
 		jp.add("jl1",jl1);
 		jp.add("jb1",jb1);
 	}
