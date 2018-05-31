@@ -1,13 +1,14 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +19,6 @@ import javax.swing.*;
 
 public class BookBorrowReturn {
 	public JPanel jp_bor_ret=new JPanel();
-	public JPanel jp_comp=new JPanel();
 	private JButton jb_borrow=new JButton("Borrow");
 	private JButton jb_return=new JButton("Return");
 	
@@ -39,15 +39,15 @@ public class BookBorrowReturn {
 		con.setLayout(null);
 		
 		JLabel jl_wrong=new JLabel(wronginf);
-		jl_wrong.setFont(new Font("Lucida Family",Font.PLAIN,15));
+		jl_wrong.setFont(new Font("consolas",Font.PLAIN,19));
 		JPanel jp_wrong=new JPanel();
 		jp_wrong.setBounds(0,20,500,30);
 		jp_wrong.add(jl_wrong);
 		con.add(jp_wrong);
 		
 		JButton jb_confirm=new JButton("Confirm");
-		jb_confirm.setFont(new Font("Lucida Family",Font.PLAIN,15));
-		jb_confirm.setBounds(200, 60, 100, 30);
+		jb_confirm.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_confirm.setBounds(190, 60, 120, 30);
 		con.add(jb_confirm);
 		
 		jb_confirm.addActionListener(new ActionListener() {
@@ -68,15 +68,15 @@ public class BookBorrowReturn {
 		con.setLayout(null);
 		
 		JLabel jl_success=new JLabel("Success!");
-		jl_success.setFont(new Font("Lucida Family",Font.PLAIN,15));
+		jl_success.setFont(new Font("consolas",Font.PLAIN,19));
 		JPanel jp_success=new JPanel();
 		jp_success.setBounds(0,20,500,30);
 		jp_success.add(jl_success);
 		con.add(jp_success);
 		
 		JButton jb_confirm=new JButton("Confirm");
-		jb_confirm.setFont(new Font("Lucida Family",Font.PLAIN,15));
-		jb_confirm.setBounds(200, 60, 100, 30);
+		jb_confirm.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_confirm.setBounds(190, 60, 120, 30);
 		con.add(jb_confirm);
 		
 		jb_confirm.addActionListener(new ActionListener() {
@@ -171,12 +171,16 @@ public class BookBorrowReturn {
 	public BookBorrowReturn() {
 		jp_bor_ret.setLayout(null);
 		
-		jl_uid.setBounds(150,140,50,30);
-		jtf_uid.setBounds(200,140,300,30);
-		jl_bid.setBounds(150,180,50,30);
-		jtf_bid.setBounds(200,180,300,30);
-		jb_borrow.setBounds(200,220,100,30);
-		jb_return.setBounds(350,220,100,30);
+		jl_uid.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_uid.setBounds(135,190,100,30);
+		jtf_uid.setBounds(235,190,300,30);
+		jl_bid.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_bid.setBounds(135,230,100,30);
+		jtf_bid.setBounds(235,230,300,30);
+		jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_borrow.setBounds(200,300,120,30);
+		jb_return.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_return.setBounds(330,300,120,30);
 		
 		jp_bor_ret.add(jl_uid);
 		jp_bor_ret.add(jtf_uid);
@@ -185,6 +189,14 @@ public class BookBorrowReturn {
 		jp_bor_ret.add(jb_borrow);
 		jp_bor_ret.add(jb_return);
 		
+		jtf_uid.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
 		jb_borrow.addActionListener(new BorrowActionListener());
 		jb_return.addActionListener(new ReturnActionListener());
 		
