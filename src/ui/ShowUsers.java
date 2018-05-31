@@ -1,13 +1,8 @@
 package ui;
 
 import javax.swing.*;
-<<<<<<< HEAD
-
 import java.awt.Dimension;
 import java.awt.Font;
-=======
-import java.awt.*;
->>>>>>> dev
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -15,13 +10,10 @@ import java.util.*;
 public class ShowUsers {
 	private JTable jt;
 	public JScrollPane jsp;
-<<<<<<< HEAD
 	
 	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
 	private int height = MainPage.getHeight()-Banner.getHeight();
 	
-=======
->>>>>>> dev
 	private Vector rowData,columnNames;	
 	private ResultSet rs=null;
 	
@@ -44,11 +36,7 @@ public class ShowUsers {
 
 				tmp.add(map.get("uname"));
 				tmp.add(map.get("uid"));
-<<<<<<< HEAD
 				if(Integer.parseInt(String.valueOf(map.get("ismanager")))==1)
-=======
-				if((int)map.get("ismanager")==1)
->>>>>>> dev
 					tmp.add("Yes");
 				else
 					tmp.add("No");
@@ -61,7 +49,6 @@ public class ShowUsers {
 		
 		//init jt and jsp
 		jt = new JTable(rowData,columnNames);
-<<<<<<< HEAD
 		jt.setFont(new Font("consolas",Font.PLAIN,18));
 		jt.getTableHeader().setFont(new Font("consolas",Font.PLAIN,19));
 		jt.setRowHeight(25);
@@ -69,11 +56,5 @@ public class ShowUsers {
 		jsp = new JScrollPane(jt);		
 		jsp.setPreferredSize(new Dimension(width,height));
 		jsp.setVisible(true);
-=======
-		jsp = new JScrollPane(jt);
-		
-		jsp.setVisible(true);
-		//jsp.setPreferredSize(new Dimension(MainClass.mp.getWidth()-130,MainClass.mp.getHeight()));
->>>>>>> dev
 	}
 }

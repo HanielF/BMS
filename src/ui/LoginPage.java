@@ -40,7 +40,6 @@ public class LoginPage {
         	public void actionPerformed(ActionEvent e) {
                 id=jtf_usr.getText();
                 pwd=new String(jpf.getPassword());
-<<<<<<< HEAD
                 if(id.equals("") || pwd.equals(""))
                 	showLoginError();
                 else if(MainClass.db.loginJudge(id, pwd)) {
@@ -99,17 +98,6 @@ public class LoginPage {
         		jd.dispose();
         	}
         });
-=======
-                if(MainClass.db.loginJudge(id, pwd)) {
-                	MainClass.mp.jf.setVisible(true);
-                	jf.setVisible(false);
-                }
-        	}
-        });
-        
-
-
->>>>>>> dev
 	}
 	
 	public void drawMain() {
@@ -118,12 +106,8 @@ public class LoginPage {
             public void paintComponent(Graphics g) {  
                 Graphics2D g2=(Graphics2D)g;   
                 super.paintComponents(g);  
-<<<<<<< HEAD
                 Image image = new ImageIcon("./source/PureColor.jpg").getImage(); 
                 //Image image = new ImageIcon("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg").getImage(); 
-=======
-                Image image = new ImageIcon("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg").getImage(); 
->>>>>>> dev
                 //Image image=Toolkit.getDefaultToolkit().getImage("F:\\Eclipse\\JAVA\\BookManager\\source\\PureColor.jpg");  
                 g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
             }  
@@ -158,15 +142,9 @@ public class LoginPage {
         jl_pwd.setFont(new Font("consolas",Font.PLAIN,16));
         jpf.setBounds(140,100,190,30);
   
-<<<<<<< HEAD
         jb_register.setBounds(80, 150, 100, 30);
         jb_register.setFont(new Font("Lucida Family",Font.PLAIN,15));
         jb_login.setBounds(220, 150, 100, 30);
-=======
-        jb_register.setBounds(80, 150, 90, 30);
-        jb_register.setFont(new Font("Lucida Family",Font.PLAIN,15));
-        jb_login.setBounds(220, 150, 90, 30);
->>>>>>> dev
         jb_login.setFont(new Font("Lucida Family",Font.PLAIN,15));
         
         jb_forget.setBounds(115,190,160,30);

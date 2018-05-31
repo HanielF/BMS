@@ -12,11 +12,8 @@ import java.util.*;
 public class Sidebar implements TreeSelectionListener {
 	private JTree tree;
 	public JScrollPane scrollPane=new JScrollPane();
-<<<<<<< HEAD
 	private int width = 150;
 	private int height = MainPage.getHeight()-Banner.getHeight();
-=======
->>>>>>> dev
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Sidebar() {
@@ -29,18 +26,11 @@ public class Sidebar implements TreeSelectionListener {
 		hstable1.put("管理员信息", s2);
 		hstable1.put("用户管理", s3);
 		tree = new JTree(hstable1);
-<<<<<<< HEAD
 		tree.setFont(new Font("楷体",Font.PLAIN,18));
 		scrollPane.setPreferredSize(new Dimension(width,height));
 		scrollPane.setViewportView(tree);
 		
 		//extend all nodes
-=======
-		scrollPane.setPreferredSize(new Dimension(130,400));
-		scrollPane.setViewportView(tree);
-		
-		//展开所有节点
->>>>>>> dev
 		for(int i=0;i<tree.getRowCount();i++) {
 			tree.expandRow(i);
 		}
@@ -56,8 +46,6 @@ public class Sidebar implements TreeSelectionListener {
 		
 		if(node==null) 
 			return;
-<<<<<<< HEAD
-
 		if(node.isLeaf()) {
 			if(node.toString().equals("所有书籍")){	
 				MainPage.cl.show(MainPage.jp,"sbs" );
@@ -84,25 +72,4 @@ public class Sidebar implements TreeSelectionListener {
 	public int getHeight() {
 		return height;
 	}
-
-=======
-		//叶子节点的监听
-		if(node.isLeaf()) {
-			if(node.toString().equals("所有书籍")){	
-				MainPage.cl.show(MainPage.jp,"sbs" );
-			}
-			else if(node.toString().equals("个人资料")) {
-				MainPage.cl.show(MainPage.jp,"jb1");
-			}
-			else if(node.toString().equals("所有用户")) {
-				MainPage.cl.show(MainPage.jp, "sus");
-			}
-			else {
-				MainPage.cl.show(MainPage.jp,"jl1");
-			}
-		}
-		
-	}
-
->>>>>>> dev
 }

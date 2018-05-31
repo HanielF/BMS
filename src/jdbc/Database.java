@@ -1,7 +1,6 @@
 package jdbc;
 import java.awt.BorderLayout;
 import java.awt.Container;
-<<<<<<< HEAD
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -10,21 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.*;
-
 import javax.swing.JButton;
-=======
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.sql.*;
-import java.util.*;
-
->>>>>>> dev
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
-
 import ui.LoginPage;
-<<<<<<< HEAD
 import ui.MainPage;
 
 public class Database {
@@ -34,15 +23,7 @@ public class Database {
     private String pwd ;   
     private String cur_user;
     private int is_manager=0;
-=======
 
-public class Database {
-	public static String driver = "com.mysql.cj.jdbc.Driver" ;   //最新官方支持
-	public static String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
-    private static String usr ;  
-    private static String pwd ;   
->>>>>>> dev
-  
     public void setUsr(String dbusr) {
     	usr=dbusr; 
     }
@@ -75,11 +56,8 @@ public class Database {
 
     //判断是否有这个用户，用于登陆
     public Boolean loginJudge(String id,String upwd) {
-<<<<<<< HEAD
     	if(id.equals("") || upwd.equals("") || id==null || upwd == null)return false;
-    	
-=======
->>>>>>> dev
+
     	Connection con=null;  
     	Statement stmt=null; 
     	ResultSet rs = null;  
@@ -106,12 +84,9 @@ public class Database {
     		}
     	}
     	catch (SQLException e) {
-<<<<<<< HEAD
     		//showSQLError(e);	
     		e.printStackTrace();
-=======
-    		showSQLError(e);	
->>>>>>> dev
+
     	}
     	finally {
 			try {
@@ -129,11 +104,8 @@ public class Database {
     @SuppressWarnings("finally")
     //这里不可以直接返回局部ResultSet，会被销毁
 	public ArrayList dbGet(String query) {
-<<<<<<< HEAD
     	if(query==null || query.equals("")) return null;
-    	
-=======
->>>>>>> dev
+
     	Connection con=null;  
     	Statement stmt=null; 
     	ResultSet rs =null;
@@ -142,17 +114,10 @@ public class Database {
     		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
     		stmt = con.createStatement();  //获得statement对象
     		rs = stmt.executeQuery (query);
-<<<<<<< HEAD
     		
     		ResultSetMetaData rsmd = rs.getMetaData();
     		int colCnt = rsmd.getColumnCount();
     		
-=======
-    		
-    		ResultSetMetaData rsmd = rs.getMetaData();
-    		int colCnt = rsmd.getColumnCount();
-    		
->>>>>>> dev
     		while(rs.next()) {
     			HashMap hmp = new HashMap();
     			for(int i = 1;i<=colCnt;i++) {
@@ -160,7 +125,7 @@ public class Database {
     			}
     			arr.add(hmp);		
     		}
-<<<<<<< HEAD
+
     	} 
     	catch (SQLException e) {  
     		showSQLError(e);
@@ -187,8 +152,7 @@ public class Database {
     		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
     		stmt = con.createStatement();  //获得statement对象
     		stmt.executeUpdate (query);
-=======
->>>>>>> dev
+
     	} 
     	catch (SQLException e) {  
     		showSQLError(e);
@@ -197,15 +161,10 @@ public class Database {
 			try {
 				if(con!=null)con.close();
 				if(stmt!=null)stmt.close();
-<<<<<<< HEAD
-=======
-				if(rs!=null)rs.close();
->>>>>>> dev
 			} 
 			catch (SQLException e) {
 				showSQLError(e);
 			}
-<<<<<<< HEAD
     	}
     }
     
@@ -322,23 +281,5 @@ public class Database {
 	public void setIs_manager(int is_manager) {
 		this.is_manager = is_manager;
 	}
-=======
-			return arr;
-    	}
-    }
-    
-    
-    public void showSQLError(SQLException e) {
-		JDialog jd_sql=new JDialog(LoginPage.jf,"SQL Error");
-		jd_sql.setVisible(true);
-		jd_sql.setBounds(600,350,300,150);
-		Container jd_sql_con = jd_sql.getContentPane();
-		
-		jd_sql_con.setLayout(new BorderLayout());
-		jd_sql_con.add(new JLabel("  SQLException: " + e.getMessage()),BorderLayout.NORTH);
-		jd_sql_con.add(new JLabel("  SQLState: " + e.getSQLState()),BorderLayout.CENTER);
-		jd_sql_con.add(new JLabel("  VendorError: " + e.getErrorCode()),BorderLayout.SOUTH);
-    }
->>>>>>> dev
 
 }
