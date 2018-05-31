@@ -13,7 +13,7 @@ public class MainClass {
 	public static SignUp su = new SignUp();
 	
 	public MainClass() {
-		mp.jf.setVisible(false);
+		mp.jf.setVisible(true);
 		lp.jf.setVisible(true);
 		fp.jf.setVisible(false);
 		su.jf.setVisible(false);
@@ -21,7 +21,7 @@ public class MainClass {
 	
 	public static void main(String []args) {
 		MainClass mc = new MainClass();
-		
+
 		//mc.db.dbUpdate("insert into books values('boom','zhangle','0.1','1000003',1)");
 		//ForgetPwdPage fp = new ForgetPwdPage();
 		//SignUpPage sup = new SignUpPage();

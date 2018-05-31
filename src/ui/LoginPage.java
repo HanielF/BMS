@@ -45,6 +45,11 @@ public class LoginPage {
                 else if(MainClass.db.loginJudge(id, pwd)) {
                 	MainClass.mp.jf.setVisible(true);
                 	MainClass.db.setCur_user(id);
+            		if(MainClass.db.isManager("select ismanager from users where uid = "+id)==1)
+            			MainClass.db.setIs_manager(1);
+            		else {
+            			MainClass.db.setIs_manager(0);
+            		}
                 	jf.dispose();
                 }else {
                 	showLoginError();
@@ -68,7 +73,7 @@ public class LoginPage {
 	public void showLoginError() {
 		JDialog jd = new JDialog(jf);
 		jd.setTitle("Login Error");
-		jd.setSize(350,150);
+		jd.setSize(350,160);
         Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
         jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
         jd.setVisible(true);

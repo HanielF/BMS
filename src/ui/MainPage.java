@@ -24,6 +24,7 @@ public class MainPage {
 	public static Sidebar sbar = new Sidebar();
 	public static ShowBooks sbs = new ShowBooks();
 	public static ShowUsers sus = new ShowUsers();
+	public static BookBorrowReturn bbr = new BookBorrowReturn();
 
 
 	public MainPage() {
