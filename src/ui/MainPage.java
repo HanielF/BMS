@@ -24,13 +24,8 @@ public class MainPage {
 	public static Sidebar sbar = new Sidebar();
 	public static ShowBooks sbs = new ShowBooks();
 	public static ShowUsers sus = new ShowUsers();
-<<<<<<< HEAD
-	public static BookBorrowReturn bbr = new BookBorrowReturn();
-
-=======
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
->>>>>>> ui
 
 	public MainPage() {
 		initJsp();
