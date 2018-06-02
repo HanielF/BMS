@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
+import java.util.*;
 
 public class LoginPage {
 	public static JFrame jf=new JFrame("Login Page");
@@ -40,18 +41,28 @@ public class LoginPage {
         	public void actionPerformed(ActionEvent e) {
                 id=jtf_usr.getText();
                 pwd=new String(jpf.getPassword());
+                
                 if(id.equals("") || pwd.equals(""))
                 	showLoginError();
                 else if(MainClass.db.loginJudge(id, pwd)) {
+                	
                 	MainClass.mp.jf.setVisible(true);
-                	MainClass.db.setCur_user(id);
+                	ArrayList rs=MainClass.db.dbGet("select uname from users where uid="+id);
+                	Iterator it = rs.iterator();
+                	String name = (String)((Map)it.next()).get("uname");
+                	MainClass.db.setCur_user(name);            
+                	
             		if(MainClass.db.isManager("select ismanager from users where uid = "+id)==1)
             			MainClass.db.setIs_manager(1);
             		else {
             			MainClass.db.setIs_manager(0);
             		}
+            		MainClass.mp = new MainPage();
+            		MainClass.mp.jf.setVisible(true);
                 	jf.dispose();
+                	//System.out.println(MainClass.db.getCur_user()+MainClass.db.getIs_manager());
                 }else {
+                	
                 	showLoginError();
                 }
         	}
@@ -59,12 +70,14 @@ public class LoginPage {
         	
         jb_forget.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		MainClass.fp  = new ForgetPwd();
         		MainClass.fp.jf.setVisible(true);
         	}
         });
         
         jb_register.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		MainClass.su = new SignUp();
         		MainClass.su.jf.setVisible(true);
         	}
         });
