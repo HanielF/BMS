@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 
 public class LoginPage {
@@ -68,10 +70,29 @@ public class LoginPage {
         		MainClass.su.jf.setVisible(true);
         	}
         });
+        
+        //回车定位到下一个文本框
+        jtf_usr.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+        
+        //回车自动登入
+        jpf.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        			jb_login.doClick();
+        		}
+        	}
+        });
 	}
 	
 	public void showLoginError() {
-		JDialog jd = new JDialog(jf);
+		final JDialog jd = new JDialog(jf);
 		jd.setTitle("Login Error");
 		jd.setSize(350,160);
         Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
