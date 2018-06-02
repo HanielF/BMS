@@ -8,8 +8,7 @@ import java.util.*;
 public class Banner {
 	public JPanel jp;
 	private JLabel jl_name;
-	private JLabel jl_welcome;
-	private JLabel jl_exit;
+	private JButton jb_exit ;
 	private Image icon;
 	private static int width=MainPage.getWidth();
 	private static int height=40;
@@ -27,24 +26,39 @@ public class Banner {
             }  
          }; 
         initLabel();
-        jp.add(jl_name,BorderLayout.EAST);
-        //jp.add(jl_welcome);
-        //jp.add(jl_exit);
+        jp.add(jl_name,BorderLayout.WEST);
+        jp.add(jb_exit,BorderLayout.EAST);
  
 		jp.setVisible(true);
 		jp.setLocation(0,0);
-		jp.setPreferredSize(new Dimension(width,height));
+		jp.setPreferredSize(new Dimension(width,height));	
 	}
 	
 	public void initLabel() {
-		jl_name=new JLabel(MainClass.db.getCur_user(),FlowLayout.LEFT);
-		//jl_name = new JLabel("I'm name",FlowLayout.LEFT);
-		jl_name.setFont(new Font("Arial",Font.BOLD,16));
-		jl_name.setPreferredSize(new Dimension(140,30));
-		//jl_name.setLocation(width-jl_name.getWidth(),height/2-jl_name.getHeight()/2);
+		jl_name=new JLabel("I'm Guest",FlowLayout.RIGHT);
+		if(MainClass.db.getIs_manager()==1)
+			jl_name.setText("    I'm Manager");
+		else
+			jl_name.setText("    I'm Borrower");
+		
+		jl_name.setFont(new Font("Arial",Font.BOLD,17));
+		jl_name.setPreferredSize(new Dimension(200,30));
 		jl_name.setVisible(true);
+
+		jb_exit=new JButton("Exit");
+		jb_exit.setFont(new Font("Arial",Font.BOLD,17));
+		jb_exit.setPreferredSize(new Dimension(80,20));
+        jb_exit.setBackground(new Color(0));
+        jb_exit.setBorderPainted(false);
+        jb_exit.setOpaque(false); 
+        
+        jb_exit.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.exit(0);
+        	}
+        });
 	}
-	
+
 	public static int getHeight() {
 		return height;
 	}
