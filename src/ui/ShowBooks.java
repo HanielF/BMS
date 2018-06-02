@@ -13,7 +13,6 @@ public class ShowBooks {
 	private int height = MainPage.getHeight()-Banner.getHeight();
 	
 	private Vector rowData,columnNames;	
-	private ResultSet rs=null;
 	
 	public ShowBooks() {
 		rowData = new Vector();
