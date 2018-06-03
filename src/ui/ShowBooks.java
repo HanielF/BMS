@@ -11,7 +11,9 @@ public class ShowBooks {
 	private JComboBox<String> jcb;
 	private JTextField jtf;
 	private JButton jb_search;
-	public JScrollPane jsp;
+	public JPanel jp;
+	private JPanel jp_top;
+	private JScrollPane jsp;
 	
 	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
 	private int height = MainPage.getHeight()-Banner.getHeight();
@@ -55,10 +57,6 @@ public class ShowBooks {
 		initTop();
 		
 		jsp.add(jt);
-		jsp.add(jl_hint);
-		jsp.add(jcb);
-		jsp.add(jtf);
-		jsp.add(jb_search);
 		jsp.setPreferredSize(new Dimension(width,height));
 		jsp.setVisible(true);
 	}
