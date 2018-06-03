@@ -81,6 +81,9 @@ public class Sidebar implements TreeSelectionListener {
 			else if(node.toString().equals("添加书籍")) {
 				MainPage.cl.show(MainPage.jp, "abs");
 			}
+			else if(node.toString().equals("添加用户")) {
+				MainPage.cl.show(MainPage.jp, "aus");
+			}
 			else {
 				MainPage.cl.show(MainPage.jp,"jl1");
 			}

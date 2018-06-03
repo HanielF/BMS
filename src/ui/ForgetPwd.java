@@ -78,7 +78,7 @@ public class ForgetPwd {
 	
 	//显示操作成功对话框
 	private void showSuccess() {
-		final JDialog jd_success=new JDialog(MainPage.jf,"Success!");
+		final JDialog jd_success=new JDialog(jf,"Success!");
 		jd_success.setVisible(true);
 		jd_success.setSize(500,150);
 		Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
