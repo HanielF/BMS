@@ -50,16 +50,15 @@ public class LoginPage {
                 else if(MainClass.db.loginJudge(id, pwd)) {
                 	ArrayList rs=MainClass.db.dbGet("select uname from users where uid="+id);
                 	Iterator it = rs.iterator();
-                	String name = (String)((Map)it.next()).get("uname");
-                	System.out.println(name);
-                	MainClass.db.setCur_user(name);      
                 	
+                	String name = (String)((Map)it.next()).get("uname");
                 	int flag=MainClass.db.isManager("select ismanager from users where uid = "+id);
-            		if(flag==1)
-            			MainClass.db.setIs_manager(1);
-            		else {
-            			MainClass.db.setIs_manager(0);
-            		}
+                	System.out.println(name);
+                	
+                	MainClass.db.setName(name);
+                	MainClass.db.setId(id);
+                	MainClass.db.setUpwd(pwd);
+                	MainClass.db.setIs_manager(flag);
             		
                 	MainClass.mp = new MainPage();
             		MainClass.mp.jf.setVisible(true);
