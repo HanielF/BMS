@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Userinformation{
-	private String name;
-	private String id;
-	private int is_manager;
 	public JPanel panel=new JPanel() {
 		 public void paintComponent(Graphics g) {  
 	         Graphics2D g2=(Graphics2D)g;   
@@ -35,27 +32,28 @@ public class Userinformation{
 	private JLabel MAXNUMtext;
 	private JLabel HAVE_BRROWED;
 	private JLabel HAVEBORROWEDtext;
+	
 	void initLabel() {
 		panel.setLayout(null);
         
 		ID=new JLabel("学生学号:");
 		ID.setBounds(80,0,100,50);
 		panel.add(ID);
-		IDtext=new JLabel(id);
+		IDtext=new JLabel(MainClass.db.getId());
 		IDtext.setBounds(160,0,100, 50);
 		panel.add(IDtext);
 		
 		NAME=new JLabel("学生姓名:");
 		NAME.setBounds(80,100,100,50);
 		panel.add(NAME);
-		NAMEtext=new JLabel(name);
+		NAMEtext=new JLabel(MainClass.db.getName());
 		NAMEtext.setBounds(160,100,100,50);
 		panel.add(NAMEtext);
 		
 		IS_MANAGER=new JLabel("是否管理:");
 		IS_MANAGER.setBounds(80,200,100,50);
 		panel.add(IS_MANAGER);
-		if(is_manager==1)
+		if(MainClass.db.getIs_manager()==1)
 			ISMANAGERtext=new JLabel("是管理员");
 		else
 			ISMANAGERtext=new JLabel("非管理员");
@@ -71,11 +69,11 @@ public class Userinformation{
 		
 		HAVE_BRROWED=new JLabel("已借书目:");
 		String num = "0";
-		ArrayList count = MainClass.db.dbGet("select count(bid) as number from borrow where uid="+id);
+		ArrayList count = MainClass.db.dbGet("select count(bid) as number from borrow where uid="+MainClass.db.getId());
 		Iterator ait = count.iterator();
 		while(ait.hasNext()) {
 			Map map = (Map)ait.next();
-			num=(String)map.get("number");
+			num=String.valueOf(map.get("number"));
 		}
 		HAVE_BRROWED.setBounds(80,400,100,50);
 		panel.add(HAVE_BRROWED);
