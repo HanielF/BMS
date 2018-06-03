@@ -32,15 +32,17 @@ public class Sidebar implements TreeSelectionListener {
 			s3= new String[2];
 			s3[0]="所有用户";
 			s3[1]="添加用户";
+			hstable1.put("图书管理", s1);
+			hstable1.put("管理员信息", s2);
+			hstable1.put("用户管理", s3);
 		}else {
 			s1= new String[2];
 			s1[0]="所有书籍";
 			s1[1]="图书借还";
 			s3= new String[2];
+			hstable1.put("图书管理", s1);
+			hstable1.put("读者信息", s2);
 		}
-		hstable1.put("图书管理", s1);
-		hstable1.put("管理员信息", s2);
-		if(MainClass.db.getIs_manager()==1) hstable1.put("用户管理", s3);
 		
 		tree = new JTree(hstable1);
 		tree.setFont(new Font("楷体",Font.PLAIN,18));
@@ -70,7 +72,7 @@ public class Sidebar implements TreeSelectionListener {
 				MainPage.cl.show(MainPage.jp,"sbs" );
 			}
 			else if(node.toString().equals("个人资料")) {
-				MainPage.cl.show(MainPage.jp,"jb1");
+				MainPage.cl.show(MainPage.jp,"uinfo");
 			}
 			else if(node.toString().equals("所有用户")) {
 				MainPage.cl.show(MainPage.jp, "sus");
