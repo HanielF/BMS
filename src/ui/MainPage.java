@@ -11,8 +11,9 @@ import java.awt.event.*;
 
 public class MainPage {
 	public static JFrame jf = new JFrame();
-	public static CardLayout cl = new CardLayout();
-	public static JPanel jp= new JPanel(cl);
+	private JPanel jp_main;//Frame的contentPane
+	public  static CardLayout cl = new CardLayout();
+	public  static JPanel jp= new JPanel(cl);//除了侧边栏的显示Panel
 
 	public JLabel jl1=new JLabel("WHAT");
 	public JButton jb1=new JButton("fuck");
@@ -29,13 +30,20 @@ public class MainPage {
 	public static AddUser aus=new AddUser();
 
 	public MainPage() {
-		initJsp();
-		
+		initJpMain();
+		initJp();
+		initJf();
+
+	    jf.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+	
+	public void initJf() {
 		//因为JFrame不可以直接添加，并且布局也是通过contentPane设置	
-		Container contentPane = jf.getContentPane();
-		contentPane.add(sbar.scrollPane,BorderLayout.WEST);
-		contentPane.add(jp,BorderLayout.CENTER);
-		contentPane.add(bn.jp,BorderLayout.NORTH);
+		jf.setContentPane(jp_main);
 		
 		//set the page in center of screen
 	    Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
@@ -45,15 +53,27 @@ public class MainPage {
 	    jf.setTitle("Book Manager System");
 		jf.pack();
 		jf.setVisible(false);
-		
-	    jf.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
 	}
 	
-	public void initJsp() {
+	//整个Frame的panel初始化
+	public void initJpMain() {
+		/*jp_main=new JPanel(new BorderLayout()) {
+            public void paintComponent(Graphics g) {  
+                Graphics2D g2=(Graphics2D)g;   
+                super.paintComponents(g);  
+                Image image = new ImageIcon("./source/background.jpg").getImage(); 
+                g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
+            }  
+		};*/
+		jp_main=new JPanel(new BorderLayout());
+		jp_main.add(sbar.scrollPane,BorderLayout.WEST);
+		jp_main.add(jp,BorderLayout.CENTER);
+		jp_main.add(bn.jp,BorderLayout.NORTH);
+        //jp_main.setOpaque(false);
+	}
+	
+	//除了侧边栏的主页面
+	public void initJp() {
 		jp.setSize(width-sbar.getWidth(),height-Banner.getHeight());
 		jp.add("sbs",sbs.jsp);
 		jp.add("sus",sus.jsp);
@@ -62,6 +82,7 @@ public class MainPage {
 		jp.add("aus",aus.jp_addUser);
 		jp.add("jl1",jl1);
 		jp.add("jb1",jb1);
+		jp.setOpaque(false);
 	}
 	
 	public static int getWidth() {

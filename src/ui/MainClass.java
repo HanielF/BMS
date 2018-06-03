@@ -7,16 +7,13 @@ public class MainClass {
 	//public static ArrayList<User> users = new ArrayList<User>();
 	//public static Formatter formatter= new Formatter(System.out);
 	public static Database db = new Database();
-	public static MainPage mp = new MainPage();
-	public static ForgetPwd fp = new ForgetPwd();
+	public static MainPage mp ;
+	public static ForgetPwd fp;
 	public static LoginPage lp = new LoginPage();
-	public static SignUp su = new SignUp();
+	public static SignUp su ;
 	
 	public MainClass() {
-		mp.jf.setVisible(true);
 		lp.jf.setVisible(true);
-		fp.jf.setVisible(false);
-		su.jf.setVisible(false);
 	}
 	
 	public static void main(String []args) {
