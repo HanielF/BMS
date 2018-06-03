@@ -1,33 +1,33 @@
 package ui;
 
-import javax.swing.*;
-
-import jdbc.Database;
-import ui.SignUp.SubmitActionListener;
-
-import java.awt.*;
+import java.awt.Choice;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-public class SignUp {
-	public static JFrame jf=new JFrame("Sign Up Page");
-	private JPanel jp_main;
+import javax.swing.*;
+
+import ui.AddBooks.AddActionListener;
+
+public class AddUser {
+	public JPanel jp_addUser=new JPanel();
 	
-	private JLabel jl_title=new JLabel("Please Input Your Information");
-	private JLabel jl_name=new JLabel("Name");
-	private JLabel jl_id=new JLabel("ID");
+	private JLabel jl_name=new JLabel("User Name");
+	private JLabel jl_id=new JLabel("User ID");
 	private JLabel jl_pwd=new JLabel("Input Password");
 	private JLabel jl_pwd_conf=new JLabel("Confirm Password");
 	private JLabel jl_ques=new JLabel("Password Question");
 	private JLabel jl_answ=new JLabel("Question Answer");
+	private JLabel jl_aut=new JLabel("Authorization");
 	
 	private JTextField jtf_name=new JTextField();
 	private JTextField jtf_id=new JTextField();
@@ -35,15 +35,13 @@ public class SignUp {
 	private JPasswordField jpf_pwd_conf=new JPasswordField();
 	private Choice ch_ques=new Choice();
 	private JTextField jtf_answ=new JTextField();
-
-	private JButton jb_submit=new JButton("Submit");
+	private Choice ch_aut=new Choice();
 	
-	private int width=500;
-	private int height=450;
+	private JButton jb_addUser=new JButton("Add User");
 	
 	//显示输入信息有误窗口
 	private void showwrong(String wronginf) {
-		final JDialog jd_wrong=new JDialog(jf,"Wrong!");
+		final JDialog jd_wrong=new JDialog(MainPage.jf,"Wrong!");
 		jd_wrong.setVisible(true);
 		jd_wrong.setSize(500,150);
 		Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
@@ -72,7 +70,7 @@ public class SignUp {
 	
 	//显示操作成功对话框
 	private void showSuccess() {
-		final JDialog jd_success=new JDialog(jf,"Success!");
+		final JDialog jd_success=new JDialog(MainPage.jf,"Success!");
 		jd_success.setVisible(true);
 		jd_success.setSize(500,150);
 		Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
@@ -94,23 +92,26 @@ public class SignUp {
 		
 		jb_confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				jtf_name.setText("");
+				jtf_id.setText("");
+				jpf_pwd.setText("");
+				jpf_pwd_conf.setText("");
+				jtf_answ.setText("");
 				jd_success.dispose();
-				SignUp.jf.dispose();
 			}
 		});
 	}
 	
-	//事件侦听器类
-	class SubmitActionListener implements ActionListener {
+	//Add按键的事件侦听器类
+	class AddActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
-			//获取用户填入的信息
 			String name=jtf_name.getText();
 			String id=jtf_id.getText();
 			String pwd=new String(jpf_pwd.getPassword());
 			String pwd_conf=new String(jpf_pwd_conf.getPassword());
 			int ques=ch_ques.getSelectedIndex()+1;
 			String answ=jtf_answ.getText();
-			int aut=0;
+			int aut=ch_aut.getSelectedIndex();
 			
 			//判断ID是否与已存在ID重复
 			boolean repeatflag=false;
@@ -140,149 +141,125 @@ public class SignUp {
 				showSuccess();
 			}
 		}
-
 	}
 	
-	public SignUp() {
-		drawMain();
-		initMain();
-        initFrame();
-        
-        //加入事件侦听器
-        jtf_name.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    e.consume();
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-        	}
-        });
-        jtf_id.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    e.consume();
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-        	}
-        });
-        jpf_pwd.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    e.consume();
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-        	}
-        });
-        jpf_pwd_conf.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    e.consume();
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-        	}
-        });
-        ch_ques.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    e.consume();
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-        	}
-        });
-        jtf_answ.addKeyListener(new KeyAdapter() {
-        	public void keyPressed(KeyEvent e) {
-        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-        			jb_submit.doClick();
-                }
-        	}
-        });
-        jb_submit.addActionListener(new SubmitActionListener());
-        jf.addWindowListener(new WindowAdapter() {});
-        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
-	
-	private void drawMain() {
-		jp_main=new JPanel(){    
-            public void paintComponent(Graphics g) {  
-                Graphics2D g2=(Graphics2D)g;   
-                super.paintComponents(g);  
-                Image image = new ImageIcon("F:\\文档\\大二下学期\\Java\\BookManager\\source\\PureColor.jpg").getImage();   //注意修改路径  
-                g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
-            }  
-         }; 
-	}
-	
-	private void initFrame() {
-		jf.setSize(width,height);
-        //获得屏幕高度宽度，用来设置居中
-        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
-        jf.setLocation((scr.width-jf.getWidth())/2,(scr.height-jf.getHeight())/2);   
-
-        jf.setContentPane(jp_main);
-	 	jf.setVisible(true);
-	 	jf.setResizable(false);
-	 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
-	private void initMain() {
-		jp_main.setOpaque(false);
-		jp_main.setLayout(null);
+	public AddUser() {
+		jp_addUser.setLayout(null);
 		
-		//设置各组件位置、字体
-		jl_title.setBounds(100, 20, 300, 40);
-		jl_title.setFont(new Font("consolas",Font.PLAIN,16));
+		jl_name.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_name.setBounds(85,120,180,30);
+		jtf_name.setBounds(265,120,300,30);
 		
-		jl_name.setBounds(80, 60, 150, 30);
-		jl_name.setFont(new Font("consolas",Font.PLAIN,16));
-        jtf_name.setBounds(230,60,190,30);
-        
-        jl_id.setBounds(80, 100, 150, 30);
-		jl_id.setFont(new Font("consolas",Font.PLAIN,16));
-        jtf_id.setBounds(230,100,190,30);
-        
-        jl_pwd.setBounds(80,140,150,30);
-        jl_pwd.setFont(new Font("consolas",Font.PLAIN,16));
-        jpf_pwd.setBounds(230,140,190,30);
-        
-        jl_pwd_conf.setBounds(80,180,150,30);
-        jl_pwd_conf.setFont(new Font("consolas",Font.PLAIN,16));
-        jpf_pwd_conf.setBounds(230,180,190,30);
-        
-        jl_ques.setBounds(80, 220, 150, 30);
-        jl_ques.setFont(new Font("consolas",Font.PLAIN,16));
-        ch_ques.setBounds(230,220,190,30);
-        ch_ques.setFont(new Font("consolas",Font.PLAIN,16));
-        ch_ques.add("NULL");
+		jl_id.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_id.setBounds(85,160,180,30);
+		jtf_id.setBounds(265,160,300,30);
+		
+		jl_pwd.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_pwd.setBounds(85,200,180,30);
+		jpf_pwd.setBounds(265,200,300,30);
+		
+		jl_pwd_conf.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_pwd_conf.setBounds(85,240,180,30);
+		jpf_pwd_conf.setBounds(265,240,300,30);
+		
+		jl_ques.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_ques.setBounds(85,280,180,30);
+		ch_ques.setFont(new Font("consolas",Font.PLAIN,16));
+		ch_ques.setBounds(265,280,300,30);
+		ch_ques.add("NULL");
         ch_ques.add("the name of your mother");
         ch_ques.add("the name of your father");
         ch_ques.add("the name of your school");
         ch_ques.add("the name of your company");
         
-        jl_answ.setBounds(80,260,150,30);
-        jl_answ.setFont(new Font("consolas",Font.PLAIN,16));
-        jtf_answ.setBounds(230,260,190,30);
+		jl_answ.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_answ.setBounds(85,320,180,30);
+		jtf_answ.setBounds(265,320,300,30);
+		
+		jl_aut.setFont(new Font("consolas",Font.PLAIN,19));
+		jl_aut.setBounds(85,360,180,30);
+		ch_aut.setFont(new Font("consolas",Font.PLAIN,16));
+		ch_aut.setBounds(265,360,300,30);
+		ch_aut.add("brower");
+        ch_aut.add("manager");
         
-        jb_submit.setBounds(190, 310, 120, 30);
-        jb_submit.setFont(new Font("consolas",Font.PLAIN,19));
-        
-        //将组件加入面板中
-        jp_main.add(jl_title);
-        jp_main.add(jl_name);
-        jp_main.add(jl_id);
-        jp_main.add(jl_pwd);
-        jp_main.add(jl_pwd_conf);
-        jp_main.add(jl_ques);
-        jp_main.add(jl_answ);
-        jp_main.add(jtf_id);
-        jp_main.add(jtf_name);
-        jp_main.add(jpf_pwd);
-        jp_main.add(jpf_pwd_conf);
-        jp_main.add(ch_ques);
-        jp_main.add(jtf_answ);
-        //jp_main.add(ch_aut);
-        jp_main.add(jb_submit);
-        
-        jp_main.setSize(width,height);
-        jp_main.setVisible(true);
+		jb_addUser.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_addUser.setBounds(265,410,120,30);
+		
+		jp_addUser.add(jl_name);
+		jp_addUser.add(jtf_name);
+		jp_addUser.add(jl_id);
+		jp_addUser.add(jtf_id);
+		jp_addUser.add(jl_pwd);
+		jp_addUser.add(jpf_pwd);
+		jp_addUser.add(jl_pwd_conf);
+		jp_addUser.add(jpf_pwd_conf);
+		jp_addUser.add(jl_ques);
+		jp_addUser.add(ch_ques);
+		jp_addUser.add(jl_answ);
+		jp_addUser.add(jtf_answ);
+		jp_addUser.add(jl_aut);
+		jp_addUser.add(ch_aut);
+		jp_addUser.add(jb_addUser);
+		
+		jtf_name.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		jtf_id.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		jpf_pwd.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		jpf_pwd_conf.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		ch_ques.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		jtf_answ.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+        	}
+        });
+		ch_aut.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+        			jb_addUser.doClick();
+                }
+        	}
+        });
+		
+		jb_addUser.addActionListener(new AddActionListener());
+		
+		jp_addUser.setVisible(true);
 	}
 }
