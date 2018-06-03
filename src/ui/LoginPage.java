@@ -11,6 +11,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
+import java.util.*;
 
 public class LoginPage {
 	public static JFrame jf=new JFrame("Login Page");
@@ -38,35 +39,51 @@ public class LoginPage {
         initMain();
         initFrame();
      
+        //登录按钮的监听
         jb_login.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
                 id=jtf_usr.getText();
                 pwd=new String(jpf.getPassword());
+                
                 if(id.equals("") || pwd.equals(""))
                 	showLoginError();
                 else if(MainClass.db.loginJudge(id, pwd)) {
-                	MainClass.mp.jf.setVisible(true);
-                	MainClass.db.setCur_user(id);
-            		if(MainClass.db.isManager("select ismanager from users where uid = "+id)==1)
+                	ArrayList rs=MainClass.db.dbGet("select uname from users where uid="+id);
+                	Iterator it = rs.iterator();
+                	String name = (String)((Map)it.next()).get("uname");
+                	System.out.println(name);
+                	MainClass.db.setCur_user(name);      
+                	
+                	int flag=MainClass.db.isManager("select ismanager from users where uid = "+id);
+            		if(flag==1)
             			MainClass.db.setIs_manager(1);
             		else {
             			MainClass.db.setIs_manager(0);
             		}
+            		
+                	MainClass.mp = new MainPage();
+            		MainClass.mp.jf.setVisible(true);
                 	jf.dispose();
+                	//System.out.println(MainClass.db.getCur_user()+MainClass.db.getIs_manager());
                 }else {
+                	
                 	showLoginError();
                 }
         	}
         });
-        	
+        
+        //忘记密码页面的监听
         jb_forget.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		MainClass.fp  = new ForgetPwd();
         		MainClass.fp.jf.setVisible(true);
         	}
         });
         
+        //注册页面的监听
         jb_register.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		MainClass.su = new SignUp();
         		MainClass.su.jf.setVisible(true);
         	}
         });
@@ -101,7 +118,8 @@ public class LoginPage {
         jd.setLayout(null);
         
         JLabel jl = new JLabel("Account Or Password Error!",JLabel.CENTER);
-        JButton jb = new JButton("Conform");
+        JButton jb = new JButton("C"
+        		+ "onform");
         
         jb.setSize(120,30);
         jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
@@ -148,7 +166,7 @@ public class LoginPage {
 	}
 	
 	public void initMain() {
-		jp_main.setOpaque(false);
+		//jp_main.setOpaque(false);
         jp_main.setLayout(null);
 		
 		//x,y,width,height
