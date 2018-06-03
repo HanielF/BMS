@@ -26,6 +26,7 @@ public class MainPage {
 	public static ShowUsers sus = new ShowUsers();
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
+	public static AddUser aus=new AddUser();
 
 	public MainPage() {
 		initJsp();
@@ -58,6 +59,7 @@ public class MainPage {
 		jp.add("sus",sus.jsp);
 		jp.add("bbr",bbr.jp_bor_ret);
 		jp.add("abs",abs.jp_addBooks);
+		jp.add("aus",aus.jp_addUser);
 		jp.add("jl1",jl1);
 		jp.add("jb1",jb1);
 	}
