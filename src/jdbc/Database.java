@@ -19,31 +19,18 @@ import ui.MainPage;
 public class Database {
 	private String driver = "org.mariadb.jdbc.Driver" ;  
 	private String url = "jdbc:mysql://127.0.0.1:3306/bms?useSSL=false&serverTimezone=GMT%2B8" ; //使用gmt+8时区并且设置useSSL=false
-    private String usr ;  
-    private String pwd ;   
-    private String cur_user;
+	private String usr;//数据库用户
+	private String pwd;//数据库用户密码
+	
+    private String name;//登录用户名
     private int is_manager=0;
+    private String id;//登录用户id
+    private String upwd;//登录用户密码
 
-    public void setUsr(String dbusr) {
-    	usr=dbusr; 
-    }
     
     public Database() {  
     	usr= "root";
     	pwd=" gabirel ";
-    	try {
-    		Class.forName (driver);  //连接
-    		System.out.println("success to load MySQL driver");
-    	} catch (ClassNotFoundException e) {    
-    		System.out.println ("error! Class not found!");  
-    		return;  
-    	}  
-    }
-    
-    //如果有其他数据库账户
-    public Database(String dbusr,String dbpwd) {  
-    	usr= dbusr;
-    	pwd=dbpwd;
     	try {
     		Class.forName (driver);  //连接
     		System.out.println("success to load MySQL driver");
@@ -169,7 +156,8 @@ public class Database {
     }
     
     //update tables with insert some records
-	public void dbUpdate(String query) {
+	public void dbUpdate(
+			String query) {
 		if(query==null || query.equals(""))return;
     	Connection con=null;  
     	Statement stmt=null; 
@@ -266,20 +254,44 @@ public class Database {
 		jd_sql_con.add(new JLabel("  SQLException: " + e.getMessage()+"\n  SQLState: " + e.getSQLState()+"\n  VendorError: " + e.getErrorCode()),BorderLayout.CENTER);
     }
 
-	public String getCur_user() {
-		return cur_user;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setCur_user(String cur_user) {
-		this.cur_user = cur_user;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 
 	public int getIs_manager() {
 		return is_manager;
 	}
 
+
 	public void setIs_manager(int is_manager) {
 		this.is_manager = is_manager;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getUpwd() {
+		return upwd;
+	}
+
+
+	public void setUpwd(String upwd) {
+		this.upwd = upwd;
 	}
 
 }
