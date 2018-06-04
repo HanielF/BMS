@@ -1,12 +1,12 @@
 package ui;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.*;
 
 public class ShowBooks {
@@ -78,6 +78,7 @@ public class ShowBooks {
 		setTableColumnCenter(jt);
 	}
 	
+	//设置表格内容居中
 	public void setTableColumnCenter(JTable table){  
 	    DefaultTableCellRenderer r = new DefaultTableCellRenderer();     
 	    r.setHorizontalAlignment(JLabel.CENTER);     
@@ -109,7 +110,6 @@ public class ShowBooks {
 		}
 	}
 
-	//设置表格内容居中
 	public void updatePanel(String query) {
 		setTable(query);
 		jt.validate();
@@ -158,7 +158,6 @@ public class ShowBooks {
 					break;
 				case "书名":
 					query = "select * from books where bname='"+jtf.getText()+"';";
-					System.out.println(query);
 					break;
 				case "ID" :
 					query = "select * from books where bid='"+jtf.getText()+"';";
@@ -172,5 +171,13 @@ public class ShowBooks {
 				updatePanel(query);
 			}
 		});
+		
+        jtf.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        			jb_search.doClick();
+        		}
+        	}
+        });
 	}
 }
