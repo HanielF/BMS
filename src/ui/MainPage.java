@@ -77,7 +77,7 @@ public class MainPage {
 	//除了侧边栏的主页面
 	public void initJp() {
 		jp.setSize(width-sbar.getWidth(),height-Banner.getHeight());
-		//jp.add("sbs",sbs.jp);
+		jp.add("sbs",sbs.jp);
 		jp.add("sus",sus.jsp);
 		jp.add("bbr",bbr.jp_bor_ret);
 		jp.add("abs",abs.jp_addBooks);
