@@ -81,6 +81,8 @@ public class ShowBorrow {
 		jt.setRowHeight(27);
 		jt.setLocation(0,0);
 		jt.setVisible(true);
+		
+		jt.getColumnModel().getColumn(3).setPreferredWidth(185);
 		setTableColumnCenter(jt);
 	}
 	
