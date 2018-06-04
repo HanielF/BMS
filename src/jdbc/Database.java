@@ -112,7 +112,6 @@ public class Database {
     			}
     			arr.add(hmp);		
     		}
-
     	} 
     	catch (SQLException e) {  
     		showSQLError(e);
@@ -139,7 +138,6 @@ public class Database {
     		con = DriverManager.getConnection (url, usr, pwd);//获得connection对象
     		stmt = con.createStatement();  //获得statement对象
     		stmt.executeUpdate (query);
-
     	} 
     	catch (SQLException e) {  
     		showSQLError(e);
