@@ -62,7 +62,7 @@ public class ShowUsers {
 		columnNames = new Vector();
 		columnNames.add("Name");
 		columnNames.add("ID");
-		columnNames.add("IsManager");
+		columnNames.add("Is Manager");
 	}
 	
 	//调用setTable()
@@ -90,7 +90,7 @@ public class ShowUsers {
 		ArrayList arr = new ArrayList();
 
 		//从键值获取map中值
-		arr=MainClass.db.dbGet("select uname,uid,ismanager from users");
+		arr=MainClass.db.dbGet(query);
 		try {
 			Iterator ait = arr.iterator();
 			while(ait.hasNext()) {
@@ -118,7 +118,7 @@ public class ShowUsers {
 		jl_hint.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_hint.setVisible(true);
 		
-		String[] choice = {"姓名","ID","管理员"};
+		String[] choice = {"全部","姓名","ID","管理员"};
 		jcb = new JComboBox<String>(choice);
 		jcb.setSelectedIndex(0);
 		jcb.setEditable(false);
