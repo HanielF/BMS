@@ -57,11 +57,11 @@ public class ShowBooks {
 	public void initVec() {
 		rowData = new Vector();
 		columnNames = new Vector();
-		columnNames.add("书名");
-		columnNames.add("作者");
-		columnNames.add("价格");
+		columnNames.add("Book Name");
+		columnNames.add("Author");
+		columnNames.add("Price");
 		columnNames.add("ID");
-		columnNames.add("余量");
+		columnNames.add("Number");
 	}
 	
 	//调用setTable()
