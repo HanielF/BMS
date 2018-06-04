@@ -160,7 +160,6 @@ public class ShowUsers {
 					break;
 				case "姓名":
 					query = "select uname,uid,ismanager from users where uname='"+jtf.getText()+"';";
-					System.out.println(query);
 					break;
 				case "ID" :
 					query = "select uname,uid,ismanager from users where uid='"+jtf.getText()+"';";

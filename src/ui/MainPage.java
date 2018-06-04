@@ -26,6 +26,7 @@ public class MainPage {
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
 	public static AddUser aus=new AddUser();
+	public static ShowBorrow sbow = new ShowBorrow();
 
 	MainPage() {
 		initJpMain();
@@ -79,6 +80,7 @@ public class MainPage {
 		jp.add("abs",abs.jp_addBooks);
 		jp.add("aus",aus.jp_addUser);
 		jp.add("uinfo",uinfo.panel);
+		jp.add("sbow",sbow.jp);
 		jp.setOpaque(false);
 	}
 	
