@@ -13,7 +13,10 @@ public class MainClass {
 	public static SignUp su ;
 	
 	public MainClass() {
+		//lp.jf.setVisible(false);
 		lp.jf.setVisible(true);
+		//mp=new MainPage();
+		//mp.jf.setVisible(true);
 	}
 	
 	public static void main(String []args) {
