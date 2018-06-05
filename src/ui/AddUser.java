@@ -21,6 +21,9 @@ import ui.AddBooks.AddActionListener;
 public class AddUser {
 	public JPanel jp_addUser=new JPanel();
 	
+	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
+	private int height = MainPage.getHeight()-Banner.getHeight();
+	
 	private JLabel jl_name=new JLabel("User Name");
 	private JLabel jl_id=new JLabel("User ID");
 	private JLabel jl_pwd=new JLabel("Input Password");
@@ -146,26 +149,29 @@ public class AddUser {
 	public AddUser() {
 		jp_addUser.setLayout(null);
 		
+		int startWidth=(width-480)/2;
+		int startHeight=(height-330)/2;
+		
 		jl_name.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_name.setBounds(85,120,180,30);
-		jtf_name.setBounds(265,120,300,30);
+		jl_name.setBounds(startWidth,startHeight,180,30);
+		jtf_name.setBounds(startWidth+180,startHeight,300,30);
 		
 		jl_id.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_id.setBounds(85,160,180,30);
-		jtf_id.setBounds(265,160,300,30);
+		jl_id.setBounds(startWidth,startHeight+40,180,30);
+		jtf_id.setBounds(startWidth+180,startHeight+40,300,30);
 		
 		jl_pwd.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_pwd.setBounds(85,200,180,30);
-		jpf_pwd.setBounds(265,200,300,30);
+		jl_pwd.setBounds(startWidth,startHeight+80,180,30);
+		jpf_pwd.setBounds(startWidth+180,startHeight+80,300,30);
 		
 		jl_pwd_conf.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_pwd_conf.setBounds(85,240,180,30);
-		jpf_pwd_conf.setBounds(265,240,300,30);
+		jl_pwd_conf.setBounds(startWidth,startHeight+120,180,30);
+		jpf_pwd_conf.setBounds(startWidth+180,startHeight+120,300,30);
 		
 		jl_ques.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_ques.setBounds(85,280,180,30);
+		jl_ques.setBounds(startWidth,startHeight+160,180,30);
 		ch_ques.setFont(new Font("consolas",Font.PLAIN,16));
-		ch_ques.setBounds(265,280,300,30);
+		ch_ques.setBounds(startWidth+180,startHeight+160,300,30);
 		ch_ques.add("NULL");
         ch_ques.add("the name of your mother");
         ch_ques.add("the name of your father");
@@ -173,18 +179,18 @@ public class AddUser {
         ch_ques.add("the name of your company");
         
 		jl_answ.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_answ.setBounds(85,320,180,30);
-		jtf_answ.setBounds(265,320,300,30);
+		jl_answ.setBounds(startWidth,startHeight+200,180,30);
+		jtf_answ.setBounds(startWidth+180,startHeight+200,300,30);
 		
 		jl_aut.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_aut.setBounds(85,360,180,30);
+		jl_aut.setBounds(startWidth,startHeight+240,180,30);
 		ch_aut.setFont(new Font("consolas",Font.PLAIN,16));
-		ch_aut.setBounds(265,360,300,30);
-		ch_aut.add("brower");
+		ch_aut.setBounds(startWidth+180,startHeight+240,300,30);
+		ch_aut.add("borrower");
         ch_aut.add("manager");
         
 		jb_addUser.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_addUser.setBounds(265,410,120,30);
+		jb_addUser.setBounds((width-120)/2,startHeight+300,120,30);
 		
 		jp_addUser.add(jl_name);
 		jp_addUser.add(jtf_name);

@@ -22,7 +22,6 @@ public class MainPage {
 	private static int width = 800;
 	private static int height = 600;
 	
-	public static Userinformation uinfo=new Userinformation();
 	public static Banner bn = new Banner();
 	public static Sidebar sbar = new Sidebar();
 	public static ShowBooks sbs = new ShowBooks();
@@ -30,7 +29,8 @@ public class MainPage {
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
 	public static AddUser aus=new AddUser();
-
+	public static Userinformation uinfo=new Userinformation();
+	
 	MainPage() {
 		initJpMain();
 		initJp();

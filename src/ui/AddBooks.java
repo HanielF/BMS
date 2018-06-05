@@ -16,6 +16,9 @@ import java.util.Map;
 import javax.swing.*;
 
 public class AddBooks {
+	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
+	private int height = MainPage.getHeight()-Banner.getHeight();
+	
 	public JPanel jp_addBooks=new JPanel();
 	private JLabel jl_name=new JLabel("Book Name");
 	private JLabel jl_author=new JLabel("Book Author");
@@ -135,23 +138,26 @@ public class AddBooks {
 	public AddBooks() {
 		jp_addBooks.setLayout(null);
 		
+		int startWidth=(width-430)/2;
+		int startHeight=(height-250)/2;
+		
 		jl_name.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_name.setBounds(100,150,130,30);
-		jtf_name.setBounds(225,150,300,30);
+		jl_name.setBounds(startWidth,startHeight,130,30);
+		jtf_name.setBounds(startWidth+130,startHeight,300,30);
 		jl_author.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_author.setBounds(100,190,130,30);
-		jtf_author.setBounds(225,190,300,30);
+		jl_author.setBounds(startWidth,startHeight+40,130,30);
+		jtf_author.setBounds(startWidth+130,startHeight+40,300,30);
 		jl_price.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_price.setBounds(100,230,130,30);
-		jtf_price.setBounds(225,230,300,30);
+		jl_price.setBounds(startWidth,startHeight+80,130,30);
+		jtf_price.setBounds(startWidth+130,startHeight+80,300,30);
 		jl_id.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_id.setBounds(100,270,130,30);
-		jtf_id.setBounds(225,270,300,30);
+		jl_id.setBounds(startWidth,startHeight+120,130,30);
+		jtf_id.setBounds(startWidth+130,startHeight+120,300,30);
 		jl_num.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_num.setBounds(100,310,130,30);
-		jtf_num.setBounds(225,310,300,30);
+		jl_num.setBounds(startWidth,startHeight+160,130,30);
+		jtf_num.setBounds(startWidth+130,startHeight+160,300,30);
 		jb_add.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_add.setBounds(265,380,120,30);
+		jb_add.setBounds((width-120)/2,startHeight+220,120,30);
 		
 		jp_addBooks.add(jl_name);
 		jp_addBooks.add(jl_author);
