@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-public class ShowBooks {
+public class ShowBorrow {
 	private JLabel jl_hint;
 	private JComboBox<String> jcb;
 	private JTextField jtf;
@@ -26,7 +26,7 @@ public class ShowBooks {
 	
 	private Vector rowData,columnNames;	
 	
-	public ShowBooks() {
+	public ShowBorrow() {
 		initVec();
 		initTable();
 		jsp = new JScrollPane(jt);
@@ -57,17 +57,23 @@ public class ShowBooks {
 	public void initVec() {
 		rowData = new Vector();
 		columnNames = new Vector();
+		columnNames.add("User ID");
 		columnNames.add("Book Name");
-		columnNames.add("Author");
-		columnNames.add("Price");
-		columnNames.add("ID");
-		columnNames.add("Number");
-	}
+		columnNames.add("Book ID");
+		columnNames.add("Time");
+		}
 	
 	//调用setTable()
 	public void initTable() {
 		//init jt and jsp
-		setTable("select * from books;");
+		String query;
+		if(MainClass.db.getIs_manager()==1) {
+			query="select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid;";
+		}
+		else {
+			query="select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid and borrow.uid='"+MainClass.db.getId()+"';";
+		}
+		setTable(query);
 		jt = new JTable(rowData,columnNames);
 		jt.setFont(new Font("consolas",Font.PLAIN,18));
 		jt.getTableHeader().setPreferredSize(new Dimension(width,27));
@@ -75,6 +81,8 @@ public class ShowBooks {
 		jt.setRowHeight(27);
 		jt.setLocation(0,0);
 		jt.setVisible(true);
+		
+		jt.getColumnModel().getColumn(3).setPreferredWidth(185);
 		setTableColumnCenter(jt);
 	}
 	
@@ -97,25 +105,16 @@ public class ShowBooks {
 				Map map = (Map)ait.next();
 				Vector tmp = new Vector();
 
+				//tmp.add(map.get("uname"));
+				tmp.add(map.get("uid"));
 				tmp.add(map.get("bname"));
-				tmp.add(map.get("author"));
-				tmp.add(map.get("price"));
 				tmp.add(map.get("bid"));
-				tmp.add(map.get("cnt"));
-				
+				tmp.add(map.get("time"));
 				rowData.add(tmp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void updatePanel(String query) {
-		setTable(query);
-		jt.validate();
-		jt.updateUI();
-		jsp.validate();
-		jsp.updateUI();
 	}
 	
 	public void initTop() {
@@ -125,8 +124,14 @@ public class ShowBooks {
 		jl_hint.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_hint.setVisible(true);
 		
-		String[] choice = {"全部","书名","ID","作者"};
-		jcb = new JComboBox<String>(choice);
+		if(MainClass.db.getIs_manager()==1) {
+				String[] choice = {"全部","用户名","用户ID","书名","图书ID","日期"};
+				jcb = new JComboBox<String>(choice);
+		}else {
+			String[] choice = {"全部","书名","图书ID","日期"};
+			jcb = new JComboBox<String>(choice);
+		}
+		
 		jcb.setSelectedIndex(0);
 		jcb.setEditable(false);
 		jcb.setSize(100,30);
@@ -140,35 +145,49 @@ public class ShowBooks {
 		jtf.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf.setVisible(true);
 		
-		jb_search = new JButton("查询书籍");
+		jb_search = new JButton("查询借阅");
 		jb_search.setSize(120,30);
 		jb_search.setLocation(460,top_height/2-jb_search.getHeight()/2);
 		jb_search.setFont(new Font("consolas",Font.PLAIN,19));
 		jb_search.setVisible(true);
 	}
 	
+	public void updatePanel(String query) {
+		setTable(query);
+		jt.validate();
+		jt.updateUI();
+		jsp.validate();
+		jsp.updateUI();
+	}
+	
 	public void addListener() {
 		jb_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				String mode = (String)jcb.getSelectedItem();
-				String query = null;
+				StringBuffer query=new StringBuffer("select users.uname,users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid ");
+				if(MainClass.db.getIs_manager()==0) {
+					query.append("and borrow.uid='"+MainClass.db.getId()+"' ");
+				}
 				switch(mode) {
 				case "全部":
-					query = "select * from books;";
+					break;
+				case "用户名":
+					query.append("and users.uname='"+jtf.getText()+"';");
+					break;
+				case "用户ID":
+					query.append("and borrow.uid='"+jtf.getText()+"';");
 					break;
 				case "书名":
-					query = "select * from books where bname='"+jtf.getText()+"';";
+					query.append("and books.bname='"+jtf.getText()+"';");
 					break;
-				case "ID" :
-					query = "select * from books where bid='"+jtf.getText()+"';";
+				case "图书ID" :
+					query.append("and borrow.bid='"+jtf.getText()+"';");
 					break;
-				case "作者":
-					query = "select * from books where author='"+jtf.getText()+"';";
+				case "日期":
+					query.append("and borrow.time='"+jtf.getText()+"';");
 					break;
-				default:
-					query = "select * from books;";
 				}
-				updatePanel(query);
+				updatePanel(query.toString());
 			}
 		});
 		
@@ -180,4 +199,6 @@ public class ShowBooks {
         	}
         });
 	}
+	
+	
 }
