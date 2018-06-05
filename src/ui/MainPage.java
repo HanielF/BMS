@@ -14,10 +14,6 @@ public class MainPage {
 	private JPanel jp_main;//Frame的contentPane
 	public  static CardLayout cl = new CardLayout();
 	public  static JPanel jp= new JPanel(cl);//除了侧边栏的显示Panel
-
-	//only for test
-	public JLabel jl1=new JLabel("WHAT");
-	public JButton jb1=new JButton("fuck");
 	
 	private static int width = 800;
 	private static int height = 600;
@@ -30,6 +26,7 @@ public class MainPage {
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
 	public static AddUser aus=new AddUser();
+	public static ShowBorrow sbow = new ShowBorrow();
 
 	MainPage() {
 		initJpMain();
@@ -77,14 +74,13 @@ public class MainPage {
 	//除了侧边栏的主页面
 	public void initJp() {
 		jp.setSize(width-sbar.getWidth(),height-Banner.getHeight());
-		//jp.add("sbs",sbs.jp);
-		jp.add("sus",sus.jsp);
+		jp.add("sbs",sbs.jp);
+		jp.add("sus",sus.jp);
 		jp.add("bbr",bbr.jp_bor_ret);
 		jp.add("abs",abs.jp_addBooks);
 		jp.add("aus",aus.jp_addUser);
-		jp.add("jl1",jl1);
-		jp.add("jb1",jb1);
 		jp.add("uinfo",uinfo.panel);
+		jp.add("sbow",sbow.jp);
 		jp.setOpaque(false);
 	}
 	

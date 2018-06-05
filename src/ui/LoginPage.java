@@ -53,7 +53,7 @@ public class LoginPage {
                 	
                 	String name = (String)((Map)it.next()).get("uname");
                 	int flag=MainClass.db.isManager("select ismanager from users where uid = "+id);
-                	System.out.println(name);
+                	System.out.println("Welcome "+name+"!");
                 	
                 	MainClass.db.setName(name);
                 	MainClass.db.setId(id);
@@ -63,7 +63,6 @@ public class LoginPage {
                 	MainClass.mp = new MainPage();
             		MainClass.mp.jf.setVisible(true);
                 	jf.dispose();
-                	//System.out.println(MainClass.db.getCur_user()+MainClass.db.getIs_manager());
                 }else {
                 	
                 	showLoginError();
