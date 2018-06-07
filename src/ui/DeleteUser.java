@@ -332,7 +332,7 @@ public class DeleteUser {
 			public void actionPerformed(ActionEvent e) {
 				//删除该用户
 				MainClass.db.dbUpdate("delete from users where uid="+id);
-				updatePanel("select uname,uid,ismanager form users;");
+				updatePanel("select uname,uid,ismanager from users;");
 				jd_prompt.dispose();
 			}
 		});
