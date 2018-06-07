@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import ui.AddBooks.AddActionListener;
 
@@ -146,6 +148,30 @@ public class AddUser {
 		}
 	}
 	
+	//判断字符串中是否有中文
+		private boolean isChinese(char c) {  
+	        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);  
+	        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS  
+	                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS  
+	                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A  
+	                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION  
+	                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION  
+	                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {  
+	            return true;  
+	        }  
+	        return false;  
+	    }
+	    private boolean isChinese(String strName) {  
+	        char[] ch = strName.toCharArray();  
+	        for (int i = 0; i < ch.length; i++) {  
+	            char c = ch[i];  
+	            if (isChinese(c)) {  
+	                return true;  
+	            }  
+	        }  
+	        return false;  
+	    }
+	
 	public AddUser() {
 		jp_addUser.setLayout(null);
 		
@@ -158,6 +184,7 @@ public class AddUser {
 		
 		jl_id.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_id.setBounds(startWidth,startHeight+40,180,30);
+		jtf_id.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_id.setBounds(startWidth+180,startHeight+40,300,30);
 		
 		jl_pwd.setFont(new Font("consolas",Font.PLAIN,19));
@@ -216,6 +243,18 @@ public class AddUser {
                 }
         	}
         });
+		jtf_name.getDocument().addDocumentListener(new DocumentListener() {
+        	public void insertUpdate(DocumentEvent e) {
+        		if (isChinese(jtf_name.getText())) {
+        			jtf_name.setFont(new Font("楷体",Font.BOLD,19));
+        		}
+        		else {
+        			jtf_name.setFont(new Font("consolas",Font.PLAIN,19));
+        		}
+        	}
+			public void changedUpdate(DocumentEvent arg0) {}
+			public void removeUpdate(DocumentEvent arg0) {}
+        });
 		jtf_id.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {
         		if (e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -255,6 +294,18 @@ public class AddUser {
                     KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
                 }
         	}
+        });
+		jtf_answ.getDocument().addDocumentListener(new DocumentListener() {
+        	public void insertUpdate(DocumentEvent e) {
+        		if (isChinese(jtf_answ.getText())) {
+        			jtf_answ.setFont(new Font("楷体",Font.BOLD,19));
+        		}
+        		else {
+        			jtf_answ.setFont(new Font("consolas",Font.PLAIN,19));
+        		}
+        	}
+			public void changedUpdate(DocumentEvent arg0) {}
+			public void removeUpdate(DocumentEvent arg0) {}
         });
 		ch_aut.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {

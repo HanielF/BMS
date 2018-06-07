@@ -180,9 +180,11 @@ public class BookBorrowReturn {
 		
 		jl_uid.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_uid.setBounds(startWidth,startHeight,100,30);
+		jtf_uid.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_uid.setBounds(startWidth+100,startHeight,300,30);
 		jl_bid.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_bid.setBounds(startWidth,startHeight+40,100,30);
+		jtf_bid.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_bid.setBounds(startWidth+100,startHeight+40,300,30);
 		jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
 		jb_borrow.setBounds((width-280)/2,startHeight+100,120,30);

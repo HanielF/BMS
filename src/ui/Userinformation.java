@@ -50,7 +50,7 @@ public class Userinformation{
 		panel.add(ID);
 		IDtext=new JLabel(MainClass.db.getId());
 		IDtext.setFont(new Font("consolas",Font.PLAIN,19));
-		IDtext.setBounds(startWidth+150,startHeight,150,30);
+		IDtext.setBounds(startWidth+180,startHeight,150,30);
 		panel.add(IDtext);
 		
 		NAME=new JLabel("User Name:");
@@ -59,7 +59,7 @@ public class Userinformation{
 		panel.add(NAME);
 		NAMEtext=new JLabel(MainClass.db.getName());
 		NAMEtext.setFont(new Font("consolas",Font.PLAIN,19));
-		NAMEtext.setBounds(startWidth+150,startHeight+40,150,30);
+		NAMEtext.setBounds(startWidth+180,startHeight+40,150,30);
 		panel.add(NAMEtext);
 		
 		IS_MANAGER=new JLabel("Is Manager:");
@@ -71,7 +71,7 @@ public class Userinformation{
 		else
 			ISMANAGERtext=new JLabel("No");
 		ISMANAGERtext.setFont(new Font("consolas",Font.PLAIN,19));
-		ISMANAGERtext.setBounds(startWidth+150,startHeight+80,150,30);
+		ISMANAGERtext.setBounds(startWidth+180,startHeight+80,150,30);
 		panel.add(ISMANAGERtext);
 		
 		MAX_NUM=new JLabel("Max Number:");
@@ -80,7 +80,7 @@ public class Userinformation{
 		panel.add(MAX_NUM);
 		MAXNUMtext=new JLabel("8");
 		MAXNUMtext.setFont(new Font("consolas",Font.PLAIN,19));
-		MAXNUMtext.setBounds(startWidth+150,startHeight+120,150,30);
+		MAXNUMtext.setBounds(startWidth+180,startHeight+120,150,30);
 		panel.add(MAXNUMtext);
 		
 		HAVE_BORROWED=new JLabel("Borrow Number:");
@@ -96,7 +96,7 @@ public class Userinformation{
 		panel.add(HAVE_BORROWED);
 		HAVEBORROWEDtext=new JLabel(num);
 		HAVEBORROWEDtext.setFont(new Font("consolas",Font.PLAIN,19));
-		HAVEBORROWEDtext.setBounds(startWidth+150,startHeight+160,150,30);
+		HAVEBORROWEDtext.setBounds(startWidth+180,startHeight+160,150,30);
 		panel.add(HAVEBORROWEDtext);
 		
 		panel.setOpaque(false);

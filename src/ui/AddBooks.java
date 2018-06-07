@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class AddBooks {
 	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
@@ -135,6 +137,30 @@ public class AddBooks {
 		}
 	}
 	
+	//判断字符串中是否有中文
+	private boolean isChinese(char c) {  
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);  
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS  
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS  
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A  
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION  
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION  
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {  
+            return true;  
+        }  
+        return false;  
+    }
+    private boolean isChinese(String strName) {  
+        char[] ch = strName.toCharArray();  
+        for (int i = 0; i < ch.length; i++) {  
+            char c = ch[i];  
+            if (isChinese(c)) {  
+                return true;  
+            }  
+        }  
+        return false;  
+    }
+	
 	public AddBooks() {
 		jp_addBooks.setLayout(null);
 		
@@ -143,18 +169,23 @@ public class AddBooks {
 		
 		jl_name.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_name.setBounds(startWidth,startHeight,130,30);
+		jtf_name.setFont(new Font("楷体",Font.BOLD,19));
 		jtf_name.setBounds(startWidth+130,startHeight,300,30);
 		jl_author.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_author.setBounds(startWidth,startHeight+40,130,30);
+		jtf_author.setFont(new Font("楷体",Font.BOLD,19));
 		jtf_author.setBounds(startWidth+130,startHeight+40,300,30);
 		jl_price.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_price.setBounds(startWidth,startHeight+80,130,30);
+		jtf_price.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_price.setBounds(startWidth+130,startHeight+80,300,30);
 		jl_id.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_id.setBounds(startWidth,startHeight+120,130,30);
+		jtf_id.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_id.setBounds(startWidth+130,startHeight+120,300,30);
 		jl_num.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_num.setBounds(startWidth,startHeight+160,130,30);
+		jtf_num.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_num.setBounds(startWidth+130,startHeight+160,300,30);
 		jb_add.setFont(new Font("consolas",Font.PLAIN,19));
 		jb_add.setBounds((width-120)/2,startHeight+220,120,30);

@@ -1,9 +1,12 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -72,19 +75,60 @@ public class ShowUsers {
 		//init jt and jsp
 		setTable("select uname,uid,ismanager from users;");
 		jt = new JTable(rowData,columnNames);
-		jt.setFont(new Font("consolas",Font.PLAIN,18));
 		jt.getTableHeader().setPreferredSize(new Dimension(width,27));
 		jt.getTableHeader().setFont(new Font("consolas",Font.PLAIN,19));
 		jt.setRowHeight(27);
 		jt.setLocation(0,0);
 		jt.setVisible(true);
+		jt.setEnabled(false);
 		setTableColumnCenter(jt);
 	}
 	
+	//判断字符串中是否有中文
+	private boolean isChinese(char c) {  
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);  
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS  
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS  
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A  
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION  
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION  
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {  
+            return true;  
+        }  
+        return false;  
+    }
+    private boolean isChinese(String strName) {  
+        char[] ch = strName.toCharArray();  
+        for (int i = 0; i < ch.length; i++) {  
+            char c = ch[i];  
+            if (isChinese(c)) {  
+                return true;  
+            }  
+        }  
+        return false;  
+    }
+	
+	//设置表格内容居中
 	public void setTableColumnCenter(JTable table){  
-	    DefaultTableCellRenderer r = new DefaultTableCellRenderer();     
-	    r.setHorizontalAlignment(JLabel.CENTER);     
-	    table.setDefaultRenderer(Object.class, r);  
+		DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
+	    	public Component getTableCellRendererComponent(JTable table,Object value,
+	                boolean isSelected,boolean hasFocus,int row,int column){          
+	    		JLabel jl=new JLabel();
+	    		String str=value.toString();
+	    		if (value!=null) {
+	    			jl.setText(str);
+	    			if (isChinese(str)) {
+	    				jl.setFont(new Font("楷体",Font.BOLD,18));
+	    			}
+	    			else {
+	    				jl.setFont(new Font("consolas",Font.PLAIN,18));
+	    			}
+	    			jl.setHorizontalAlignment(SwingConstants.CENTER);
+	    		}
+				return jl;   
+			}
+	    };     
+	    table.setDefaultRenderer(Object.class, r);   
 	}
 	
 	public void setTable(String query) {
@@ -114,35 +158,35 @@ public class ShowUsers {
 	}
 	
 	public void initTop() {
-		jl_hint = new JLabel("查询方式");
-		jl_hint.setSize(80,30);
-		jl_hint.setLocation(80,top_height/2-jl_hint.getHeight()/2);
+		jl_hint = new JLabel("Search Way:");
+		jl_hint.setSize(120,30);
+		jl_hint.setLocation(60,top_height/2-jl_hint.getHeight()/2);
 		jl_hint.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_hint.setVisible(true);
 		
-		String[] choice = {"全部","姓名","ID","管理员"};
+		String[] choice = {"All","Name","ID","Manager","Borrower"};
 		jcb = new JComboBox<String>(choice);
 		jcb.setSelectedIndex(0);
 		jcb.setEditable(false);
-		jcb.setSize(100,30);
+		jcb.setSize(120,30);
 		jcb.setFont(new Font("consolas",Font.PLAIN,19));
 		jcb.setLocation(180,top_height/2-jcb.getHeight()/2);
 		jcb.setVisible(true);
 		
 		jtf = new JTextField();
 		jtf.setSize(140,30);
-		jtf.setLocation(300,top_height/2-jtf.getHeight()/2);
+		jtf.setLocation(320,top_height/2-jtf.getHeight()/2);
 		jtf.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf.setVisible(true);
+		jtf.setEditable(false);
 		
-		jb_search = new JButton("查询用户");
-		jb_search.setSize(120,30);
-		jb_search.setLocation(460,top_height/2-jb_search.getHeight()/2);
+		jb_search = new JButton("Search");
+		jb_search.setSize(100,30);
+		jb_search.setLocation(480,top_height/2-jb_search.getHeight()/2);
 		jb_search.setFont(new Font("consolas",Font.PLAIN,19));
 		jb_search.setVisible(true);
 	}
 	
-	//设置表格内容居中
 	public void updatePanel(String query) {
 		setTable(query);
 		jt.validate();
@@ -157,20 +201,23 @@ public class ShowUsers {
 				String mode = (String)jcb.getSelectedItem();
 				String query = null;
 				switch(mode) {
-				case "全部":
-					query = "select uname,uid,ismanager form users;";
+				case "All":
+					query = "select uname,uid,ismanager from users;";
 					break;
-				case "姓名":
+				case "Name":
 					query = "select uname,uid,ismanager from users where uname='"+jtf.getText()+"';";
 					break;
 				case "ID" :
 					query = "select uname,uid,ismanager from users where uid='"+jtf.getText()+"';";
 					break;
-				case "管理员":
+				case "Manager":
 					query = "select uname,uid,ismanager from users where ismanager='1';";
 					break;
+				case "Borrower":
+					query = "select uname,uid,ismanager from users where ismanager='0';";
+					break;
 				default:
-					query = "select uname,uid,ismanager form users;";
+					query = "select uname,uid,ismanager from users;";
 				}
 				updatePanel(query);
 			}
@@ -183,5 +230,43 @@ public class ShowUsers {
         		}
         	}
         });
+        
+        jtf.getDocument().addDocumentListener(new DocumentListener() {
+        	public void insertUpdate(DocumentEvent e) {
+        		if (isChinese(jtf.getText())) {
+        			jtf.setFont(new Font("楷体",Font.BOLD,19));
+        		}
+        		else {
+        			jtf.setFont(new Font("consolas",Font.PLAIN,19));
+        		}
+        	}
+			public void changedUpdate(DocumentEvent arg0) {}
+			public void removeUpdate(DocumentEvent arg0) {}
+        });
+        
+        jcb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==jcb) {
+					int index = jcb.getSelectedIndex();
+					switch (index) {
+					case 0:
+						jtf.setEditable(false);
+						break;
+					case 1:
+						jtf.setEditable(true);
+						break;
+					case 2:
+						jtf.setEditable(true);
+						break;
+					case 3:
+						jtf.setEditable(false);
+						break;
+					case 4:
+						jtf.setEditable(false);
+						break;
+					}
+				}
+			}
+		});
 	}
 }
