@@ -25,10 +25,10 @@ public class ForgetPwd {
 	private JPanel jp_title1=new JPanel();
 	private JPanel jp_title2=new JPanel();
 	
-	private JLabel jl_title1=new JLabel("Please input the account:");
+	private JLabel jl_title1=new JLabel("Please input the account");
 	private JLabel jl_name=new JLabel("Name");
 	private JLabel jl_id=new JLabel("ID");
-	private JLabel jl_title2=new JLabel("Set password:");
+	private JLabel jl_title2=new JLabel("Set password");
 	private JLabel jl_ques=new JLabel("Question");
 	private JLabel jl_question;
 	private JLabel jl_answ=new JLabel("Answer");
@@ -41,7 +41,7 @@ public class ForgetPwd {
 	private JPasswordField jpf_new_pwd=new JPasswordField();
 	private JPasswordField jpf_pwd_conf=new JPasswordField();
 	
-	private JButton jb_submit1=new JButton("Submit");
+	private JButton jb_submit1=new JButton("Next");
 	private JButton jb_submit2=new JButton("Submit");
 	
 	private int width=500;
@@ -258,9 +258,11 @@ public class ForgetPwd {
 		jp_main1.setLayout(null);
 		
 		//设置各组件位置、字体
-		jl_title1.setFont(new Font("consolas",Font.PLAIN,16));
+		jl_title1.setFont(new Font("consolas",Font.BOLD,18));
 		jp_title1.setOpaque(false);
-		jp_title1.setBounds(0,40,500,30);;
+		jp_title1.setLayout(null);
+		jl_title1.setBounds(120,35,260,30);
+		jp_title1.setBounds(0,0,500,70);
 		jp_title1.add(jl_title1);
 		
 		jl_name.setBounds(80, 80, 150, 30);
@@ -292,9 +294,11 @@ public class ForgetPwd {
 		jp_main2.setLayout(null);
 		
 		//设置各组件位置、字体
-		jl_title2.setFont(new Font("consolas",Font.PLAIN,16));
+		jl_title2.setFont(new Font("consolas",Font.BOLD,19));		
+		jl_title2.setBounds(180,20,200,30);
+		jp_title2.setLayout(null);
+		jp_title2.setBounds(0,0,500,70);
 		jp_title2.setOpaque(false);
-		jp_title2.setBounds(0,20,500,30);;
 		jp_title2.add(jl_title2);
 		
 		jl_ques.setBounds(80, 60, 150, 30);
@@ -354,9 +358,5 @@ public class ForgetPwd {
         
         //加入事件侦听器
         jb_submit2.addActionListener(new Submit2ActionListener());
-	}
-	
-	public static void main(String[] args) {
-		ForgetPwd fp=new ForgetPwd();
 	}
 }
