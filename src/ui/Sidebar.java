@@ -30,9 +30,10 @@ public class Sidebar implements TreeSelectionListener {
 			s1[3]="图书借还";
 			
 			//在所有用户哪里添加删除和修改以及设置管理员的功能，管理才有权限打开所有用户页面和添加用户
-			s3= new String[2];
+			s3= new String[3];
 			s3[0]="所有用户";
 			s3[1]="添加用户";
+			s3[2]="删除用户";
 			hstable1.put("图书管理", s1);
 			hstable1.put("管理员信息", s2);
 			hstable1.put("用户管理", s3);
@@ -90,6 +91,9 @@ public class Sidebar implements TreeSelectionListener {
 			}
 			else if(node.toString().equals("所有借阅")||node.toString().equals("我的借阅")) {
 				MainPage.cl.show(MainPage.jp, "sbow");
+			}
+			else if(node.toString().equals("删除用户")) {
+				MainPage.cl.show(MainPage.jp, "delu");
 			}
 			else {
 				MainPage.cl.show(MainPage.jp,"sbs");

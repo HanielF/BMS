@@ -2,18 +2,20 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 public class Userinformation{
-	public JPanel panel=new JPanel() {
-		 public void paintComponent(Graphics g) {  
-	         Graphics2D g2=(Graphics2D)g;   
-	         super.paintComponents(g);  
-	         Image image = new ImageIcon("C:\\Users\\Mr Xu\\eclipse-workspace\\图书管理\\src\\图书管理之用户信息\\PureColor.jpg").getImage();   //注意修改路径  
-	         g2.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);  
-	     }  
+	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
+	private int height = MainPage.getHeight()-Banner.getHeight();
+	
+	public JPanel panel=new JPanel();
+	private JPanel imagePanel=new JPanel() {
+		 public void paint(Graphics g)
+		    {
+		        Toolkit tool = this.getToolkit();
+		        Image image = tool.getImage("F:\\文档\\GitHub\\BMS\\source\\headPicture.png");
+		        g.drawImage(image, 0, 0, 100, 100, this);
+	     }
 	};
 	
 	//构造函数 
@@ -30,44 +32,59 @@ public class Userinformation{
 	private JLabel ISMANAGERtext;
 	private JLabel MAX_NUM;
 	private JLabel MAXNUMtext;
-	private JLabel HAVE_BRROWED;
+	private JLabel HAVE_BORROWED;
 	private JLabel HAVEBORROWEDtext;
 	
 	void initLabel() {
 		panel.setLayout(null);
+		
+		imagePanel.setBounds((width-100)/2,50,100,100);
+		panel.add(imagePanel);
+		
+		int startWidth=(width-300)/2;
+		int startHeight=(height-190)/2;
         
-		ID=new JLabel("学生学号:");
-		ID.setBounds(80,0,100,50);
+		ID=new JLabel("User ID:");
+		ID.setFont(new Font("consolas",Font.PLAIN,19));
+		ID.setBounds(startWidth,startHeight,150,30);
 		panel.add(ID);
 		IDtext=new JLabel(MainClass.db.getId());
-		IDtext.setBounds(160,0,100, 50);
+		IDtext.setFont(new Font("consolas",Font.PLAIN,19));
+		IDtext.setBounds(startWidth+180,startHeight,150,30);
 		panel.add(IDtext);
 		
-		NAME=new JLabel("学生姓名:");
-		NAME.setBounds(80,100,100,50);
+		NAME=new JLabel("User Name:");
+		NAME.setFont(new Font("consolas",Font.PLAIN,19));
+		NAME.setBounds(startWidth,startHeight+40,150,30);
 		panel.add(NAME);
 		NAMEtext=new JLabel(MainClass.db.getName());
-		NAMEtext.setBounds(160,100,100,50);
+		NAMEtext.setFont(new Font("consolas",Font.PLAIN,19));
+		NAMEtext.setBounds(startWidth+180,startHeight+40,150,30);
 		panel.add(NAMEtext);
 		
-		IS_MANAGER=new JLabel("是否管理:");
-		IS_MANAGER.setBounds(80,200,100,50);
+		IS_MANAGER=new JLabel("Is Manager:");
+		IS_MANAGER.setFont(new Font("consolas",Font.PLAIN,19));
+		IS_MANAGER.setBounds(startWidth,startHeight+80,150,30);
 		panel.add(IS_MANAGER);
 		if(MainClass.db.getIs_manager()==1)
-			ISMANAGERtext=new JLabel("是管理员");
+			ISMANAGERtext=new JLabel("Yes");
 		else
-			ISMANAGERtext=new JLabel("非管理员");
-		ISMANAGERtext.setBounds(160,200,100,50);
+			ISMANAGERtext=new JLabel("No");
+		ISMANAGERtext.setFont(new Font("consolas",Font.PLAIN,19));
+		ISMANAGERtext.setBounds(startWidth+180,startHeight+80,150,30);
 		panel.add(ISMANAGERtext);
 		
-		MAX_NUM=new JLabel("最大书目:");
-		MAX_NUM.setBounds(80,300,100,50);
+		MAX_NUM=new JLabel("Max Number:");
+		MAX_NUM.setFont(new Font("consolas",Font.PLAIN,19));
+		MAX_NUM.setBounds(startWidth,startHeight+120,150,30);
 		panel.add(MAX_NUM);
 		MAXNUMtext=new JLabel("8");
-		MAXNUMtext.setBounds(160,300,100,50);
+		MAXNUMtext.setFont(new Font("consolas",Font.PLAIN,19));
+		MAXNUMtext.setBounds(startWidth+180,startHeight+120,150,30);
 		panel.add(MAXNUMtext);
 		
-		HAVE_BRROWED=new JLabel("已借书目:");
+		HAVE_BORROWED=new JLabel("Borrow Number:");
+		HAVE_BORROWED.setFont(new Font("consolas",Font.PLAIN,19));
 		String num = "0";
 		ArrayList count = MainClass.db.dbGet("select count(bid) as number from borrow where uid="+MainClass.db.getId());
 		Iterator ait = count.iterator();
@@ -75,11 +92,13 @@ public class Userinformation{
 			Map map = (Map)ait.next();
 			num=String.valueOf(map.get("number"));
 		}
-		HAVE_BRROWED.setBounds(80,400,100,50);
-		panel.add(HAVE_BRROWED);
+		HAVE_BORROWED.setBounds(startWidth,startHeight+160,150,30);
+		panel.add(HAVE_BORROWED);
 		HAVEBORROWEDtext=new JLabel(num);
-		HAVEBORROWEDtext.setBounds(160,400,100,50);
+		HAVEBORROWEDtext.setFont(new Font("consolas",Font.PLAIN,19));
+		HAVEBORROWEDtext.setBounds(startWidth+180,startHeight+160,150,30);
 		panel.add(HAVEBORROWEDtext);
+		
 		panel.setOpaque(false);
 		panel.setVisible(true);
 	}

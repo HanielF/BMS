@@ -19,6 +19,10 @@ import javax.swing.*;
 
 public class BookBorrowReturn {
 	public JPanel jp_bor_ret=new JPanel();
+	
+	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
+	private int height = MainPage.getHeight()-Banner.getHeight();
+	
 	private JButton jb_borrow=new JButton("Borrow");
 	private JButton jb_return=new JButton("Return");
 	
@@ -171,16 +175,21 @@ public class BookBorrowReturn {
 	public BookBorrowReturn() {
 		jp_bor_ret.setLayout(null);
 		
+		int startWidth=(width-400)/2;
+		int startHeight=(height-130)/2;
+		
 		jl_uid.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_uid.setBounds(135,190,100,30);
-		jtf_uid.setBounds(235,190,300,30);
+		jl_uid.setBounds(startWidth,startHeight,100,30);
+		jtf_uid.setFont(new Font("consolas",Font.PLAIN,19));
+		jtf_uid.setBounds(startWidth+100,startHeight,300,30);
 		jl_bid.setFont(new Font("consolas",Font.PLAIN,19));
-		jl_bid.setBounds(135,230,100,30);
-		jtf_bid.setBounds(235,230,300,30);
+		jl_bid.setBounds(startWidth,startHeight+40,100,30);
+		jtf_bid.setFont(new Font("consolas",Font.PLAIN,19));
+		jtf_bid.setBounds(startWidth+100,startHeight+40,300,30);
 		jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_borrow.setBounds(200,300,120,30);
+		jb_borrow.setBounds((width-280)/2,startHeight+100,120,30);
 		jb_return.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_return.setBounds(330,300,120,30);
+		jb_return.setBounds((width-280)/2+160,startHeight+100,120,30);
 		
 		jp_bor_ret.add(jl_uid);
 		jp_bor_ret.add(jtf_uid);
