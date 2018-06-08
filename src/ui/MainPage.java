@@ -23,6 +23,7 @@ public class MainPage {
 	public static ShowBooks sbs = new ShowBooks();
 	public static ShowUsers sus = new ShowUsers();
 	public static DeleteUser delu=new DeleteUser();
+	public static DeleteBorrow delbow = new DeleteBorrow();
 	public static BookBorrowReturn bbr=new BookBorrowReturn();
 	public static AddBooks abs=new AddBooks();
 	public static AddUser aus=new AddUser();
@@ -83,6 +84,7 @@ public class MainPage {
 		jp.add("uinfo",uinfo.panel);
 		jp.add("sbow",sbow.jp);
 		jp.add("delu",delu.jp);
+		jp.add("delbow",delbow.jp);
 		jp.setOpaque(false);
 	}
 	
