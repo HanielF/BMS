@@ -192,6 +192,37 @@ public class ShowBooks {
 		jb_search.setVisible(true);
 	}
 	
+	
+	public void showNoInputError() {
+		final JDialog jd = new JDialog(MainClass.mp.jf);
+		jd.setTitle("Input Error");
+		jd.setSize(350,160);
+        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
+        jd.setVisible(true);
+        jd.setLayout(null);
+        
+        JLabel jl = new JLabel("Please input some information!",JLabel.CENTER);
+        JButton jb = new JButton("Conform");
+        
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
+    }
+	
 	public void addListener() {
 		jb_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -202,13 +233,28 @@ public class ShowBooks {
 					query = "select * from books;";
 					break;
 				case "Name":
-					query = "select * from books where bname='"+jtf.getText()+"';";
+					if(jtf.getText().equals("")) {
+						showNoInputError();
+					}
+					else {
+						query = "select * from books where bname='"+jtf.getText()+"';";
+					}
 					break;
 				case "ID" :
-					query = "select * from books where bid='"+jtf.getText()+"';";
+					if(jtf.getText().equals("")) {
+						showNoInputError();
+					}
+					else {
+						query = "select * from books where bid='"+jtf.getText()+"';";
+					}
 					break;
 				case "Author":
-					query = "select * from books where author='"+jtf.getText()+"';";
+					if(jtf.getText().equals("")) {
+						showNoInputError();
+					}
+					else {
+						query = "select * from books where author='"+jtf.getText()+"';";
+					}
 					break;
 				default:
 					query = "select * from books;";

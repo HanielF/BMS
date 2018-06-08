@@ -240,10 +240,19 @@ public class DeleteUser {
 					query = "select uname,uid,ismanager from users;";
 					break;
 				case "Name":
-					query = "select uname,uid,ismanager from users where uname='"+jtf.getText()+"';";
-					break;
+					if(jtf.getText().equals("")) {
+						showNoInputError();
+					}
+					else {
+						query = "select uname,uid,ismanager from users where uname='"+jtf.getText()+"';";
+					}
 				case "ID" :
-					query = "select uname,uid,ismanager from users where uid='"+jtf.getText()+"';";
+					if(jtf.getText().equals("")) {
+						showNoInputError();
+					}
+					else {
+						query = "select uname,uid,ismanager from users where uid='"+jtf.getText()+"';";
+					}
 					break;
 				case "Manager":
 					query = "select uname,uid,ismanager from users where ismanager='1';";
@@ -304,6 +313,37 @@ public class DeleteUser {
 			}
 			
 		});
+	}
+	
+	
+	public void showNoInputError() {
+		final JDialog jd = new JDialog(MainClass.mp.jf);
+		jd.setTitle("Input Error");
+		jd.setSize(350,160);
+        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
+        jd.setVisible(true);
+        jd.setLayout(null);
+        
+        JLabel jl = new JLabel("Please input some information!",JLabel.CENTER);
+        JButton jb = new JButton("Conform");
+        
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
 	}
 	
 	//显示提示窗口
