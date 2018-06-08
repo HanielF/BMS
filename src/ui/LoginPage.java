@@ -116,8 +116,7 @@ public class LoginPage {
         jd.setLayout(null);
         
         JLabel jl = new JLabel("Account Or Password Error!",JLabel.CENTER);
-        JButton jb = new JButton("C"
-        		+ "onform");
+        JButton jb = new JButton("Conform");
         
         jb.setSize(120,30);
         jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);

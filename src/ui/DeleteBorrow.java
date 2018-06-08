@@ -223,26 +223,31 @@ public class DeleteBorrow {
 				if(MainClass.db.getIs_manager()==0) {
 					query.append("and borrow.uid='"+MainClass.db.getId()+"' ");
 				}
-				switch(mode) {
-				case "All":
-					break;
-				case "User Name":
-					query.append("and users.uname='"+jtf.getText()+"';");
-					break;
-				case "User ID":
-					query.append("and borrow.uid='"+jtf.getText()+"';");
-					break;
-				case "Book Name":
-					query.append("and books.bname='"+jtf.getText()+"';");
-					break;
-				case "Book ID" :
-					query.append("and borrow.bid='"+jtf.getText()+"';");
-					break;
-				case "Date":
-					query.append("and borrow.time='"+jtf.getText()+"';");
-					break;
+				if(!mode.equals("All") && jtf.getText().equals("")) {
+					showNoInputError();
 				}
-				updatePanel(query.toString());
+				else {
+					switch(mode) {
+					case "All":
+						break;
+					case "User Name":
+						query.append("and users.uname='"+jtf.getText()+"';");
+						break;
+					case "User ID":
+						query.append("and borrow.uid='"+jtf.getText()+"';");
+						break;
+					case "Book Name":
+						query.append("and books.bname='"+jtf.getText()+"';");
+						break;
+					case "Book ID" :
+						query.append("and borrow.bid='"+jtf.getText()+"';");
+						break;
+					case "Date":
+						query.append("and borrow.time='"+jtf.getText()+"';");
+						break;
+					}
+					updatePanel(query.toString());
+				}
 			}
 		});
 		
@@ -296,7 +301,35 @@ public class DeleteBorrow {
 		});   
 	}
 	
-	
+	public void showNoInputError() {
+		final JDialog jd = new JDialog(MainClass.mp.jf);
+		jd.setTitle("Input Error");
+		jd.setSize(350,160);
+        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
+        jd.setVisible(true);
+        jd.setLayout(null);
+        
+        JLabel jl = new JLabel("Please input some information!",JLabel.CENTER);
+        JButton jb = new JButton("Conform");
+        
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
+	}
 	//显示提示窗口
 	private void showPrompt(final String uid,final String bid,final String date ) {
 		final JDialog jd_prompt=new JDialog(MainPage.jf,"Prompt");
