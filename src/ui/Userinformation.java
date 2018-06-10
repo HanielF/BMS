@@ -29,7 +29,7 @@ public class Userinformation{
             }    
 		};
 		imagePanel.setBackground(null);
-    imagePanel.setOpaque(false);
+		imagePanel.setOpaque(false);
 		initLabel();	
 		panel.setBackground(new Color(255,251,240));
 	}
