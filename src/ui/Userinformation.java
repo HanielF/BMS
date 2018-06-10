@@ -8,19 +8,30 @@ public class Userinformation{
 	private int width = MainPage.getWidth()-MainClass.mp.sbar.getWidth();
 	private int height = MainPage.getHeight()-Banner.getHeight();
 	
-	public JPanel panel=new JPanel();
+	public JPanel panel;
 	private JPanel imagePanel=new JPanel() {
 		 public void paint(Graphics g)
 		    {
 		        Toolkit tool = this.getToolkit();
-		        Image image = tool.getImage("F:\\文档\\GitHub\\BMS\\source\\headPicture.png");
+		        //Image image = tool.getImage("F:\\文档\\GitHub\\BMS\\source\\headPicture.png");
+		        Image image = tool.getImage("./source/back.jpg");
 		        g.drawImage(image, 0, 0, 100, 100, this);
 	     }
 	};
 	
 	//构造函数 
 	public Userinformation() {
+		panel = new JPanel() {
+            protected void paintComponent(Graphics g) {    
+                ImageIcon icon = new ImageIcon("./source/background.jpg");    
+                Image img = icon.getImage();    
+                g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());    
+            }    
+		};
+		imagePanel.setBackground(null);
+    imagePanel.setOpaque(false);
 		initLabel();	
+		panel.setBackground(new Color(255,251,240));
 	}
 	
 	//设置标签内容
@@ -99,7 +110,7 @@ public class Userinformation{
 		HAVEBORROWEDtext.setBounds(startWidth+180,startHeight+160,150,30);
 		panel.add(HAVEBORROWEDtext);
 		
-		panel.setOpaque(false);
+		//panel.setOpaque(false);
 		panel.setVisible(true);
 	}
 }

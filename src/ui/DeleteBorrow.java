@@ -4,8 +4,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.text.Document;
+import javax.swing.table.TableColumn;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-public class ShowBooks {
+public class DeleteBorrow {
 	private JLabel jl_hint;
 	private JComboBox<String> jcb;
 	private JTextField jtf;
@@ -31,7 +30,7 @@ public class ShowBooks {
 	
 	private Vector rowData,columnNames;	
 	
-	public ShowBooks() {
+	public DeleteBorrow() {
 		initVec();
 		initTable();
 		jsp = new JScrollPane(jt);
@@ -62,17 +61,23 @@ public class ShowBooks {
 	public void initVec() {
 		rowData = new Vector();
 		columnNames = new Vector();
+		columnNames.add("User ID");
 		columnNames.add("Book Name");
-		columnNames.add("Author");
-		columnNames.add("Price");
-		columnNames.add("ID");
-		columnNames.add("Number");
-	}
+		columnNames.add("Book ID");
+		columnNames.add("Time");
+		}
 	
 	//调用setTable()
 	public void initTable() {
 		//init jt and jsp
-		setTable("select * from books;");
+		String query;
+		if(MainClass.db.getIs_manager()==1) {
+			query="select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid;";
+		}
+		else {
+			query="select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid and borrow.uid='"+MainClass.db.getId()+"';";
+		}
+		setTable(query);
 		jt = new JTable(rowData,columnNames);
 		jt.getTableHeader().setPreferredSize(new Dimension(width,27));
 		jt.getTableHeader().setFont(new Font("consolas",Font.PLAIN,19));
@@ -80,12 +85,14 @@ public class ShowBooks {
 		jt.setLocation(0,0);
 		jt.setVisible(true);
 		jt.setEnabled(false);
+		
+		jt.getColumnModel().getColumn(3).setPreferredWidth(185);
 		setTableColumnCenter(jt);
 	}
 	
-	//设置表格内容居中以及字体
+	//设置表格内容居中及字体
 	public void setTableColumnCenter(JTable table){  
-	    DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
+		DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
 	    	public Component getTableCellRendererComponent(JTable table,Object value,
 	                boolean isSelected,boolean hasFocus,int row,int column){          
 	    		JLabel jl=new JLabel();
@@ -104,6 +111,16 @@ public class ShowBooks {
 			}
 	    };     
 	    table.setDefaultRenderer(Object.class, r);  
+	}
+	
+	
+	//设置Operation列颜色
+	private void setOperationColor(JTable table) {
+		TableColumn tableColumn = table.getColumn("Operation");   
+        DefaultTableCellRenderer cellRanderer = new DefaultTableCellRenderer(); 
+        cellRanderer.setHorizontalAlignment(JLabel.CENTER);
+        cellRanderer.setForeground(Color.RED);  
+        tableColumn.setCellRenderer(cellRanderer);
 	}
 	
 	//判断字符串中是否有中文
@@ -142,25 +159,16 @@ public class ShowBooks {
 				Map map = (Map)ait.next();
 				Vector tmp = new Vector();
 
+				//tmp.add(map.get("uname"));
+				tmp.add(map.get("uid"));
 				tmp.add(map.get("bname"));
-				tmp.add(map.get("author"));
-				tmp.add(map.get("price"));
 				tmp.add(map.get("bid"));
-				tmp.add(map.get("cnt"));
-				
+				tmp.add(map.get("time"));
 				rowData.add(tmp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void updatePanel(String query) {
-		setTable(query);
-		jt.validate();
-		jt.updateUI();
-		jsp.validate();
-		jsp.updateUI();
 	}
 	
 	public void initTop() {
@@ -170,8 +178,14 @@ public class ShowBooks {
 		jl_hint.setFont(new Font("consolas",Font.PLAIN,19));
 		jl_hint.setVisible(true);
 		
-		String[] choice = {"All","Name","ID","Author"};
-		jcb = new JComboBox<String>(choice);
+		if(MainClass.db.getIs_manager()==1) {
+				String[] choice = {"All","User Name","User ID","Book Name","Book ID","Date"};
+				jcb = new JComboBox<String>(choice);
+		}else {
+			String[] choice = {"All","Book Name","Book ID","Date"};
+			jcb = new JComboBox<String>(choice);
+		}
+		
 		jcb.setSelectedIndex(0);
 		jcb.setEditable(false);
 		jcb.setSize(120,30);
@@ -192,74 +206,48 @@ public class ShowBooks {
 		jb_search.setVisible(true);
 	}
 	
-	
-	public void showNoInputError() {
-		final JDialog jd = new JDialog(MainClass.mp.jf);
-		jd.setTitle("Input Error");
-		jd.setSize(350,160);
-        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
-        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
-        jd.setVisible(true);
-        jd.setLayout(null);
-        
-        JLabel jl = new JLabel("Please input some information!",JLabel.CENTER);
-        JButton jb = new JButton("Conform");
-        
-        jb.setSize(120,30);
-        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
-        jl.setSize(300,30);
-        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
-        
-        jl.setFont(new Font("consolas",Font.PLAIN,19));
-        jb.setFont(new Font("consolas",Font.PLAIN,19));
-        
-        jd.add(jb);
-        jd.add(jl);
-        
-        jb.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		jd.dispose();
-        	}
-        });
-    }
+	public void updatePanel(String query) {
+		setTable(query);
+		jt.validate();
+		jt.updateUI();
+		setOperationColor(jt);
+		jsp.validate();
+		jsp.updateUI();
+	}
 	
 	public void addListener() {
 		jb_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				String mode = (String)jcb.getSelectedItem();
-				String query = null;
-				switch(mode) {
-				case "All":
-					query = "select * from books;";
-					break;
-				case "Name":
-					if(jtf.getText().equals("")) {
-						showNoInputError();
-					}
-					else {
-						query = "select * from books where bname='"+jtf.getText()+"';";
-					}
-					break;
-				case "ID" :
-					if(jtf.getText().equals("")) {
-						showNoInputError();
-					}
-					else {
-						query = "select * from books where bid='"+jtf.getText()+"';";
-					}
-					break;
-				case "Author":
-					if(jtf.getText().equals("")) {
-						showNoInputError();
-					}
-					else {
-						query = "select * from books where author='"+jtf.getText()+"';";
-					}
-					break;
-				default:
-					query = "select * from books;";
+				StringBuffer query=new StringBuffer("select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid ");
+				if(MainClass.db.getIs_manager()==0) {
+					query.append("and borrow.uid='"+MainClass.db.getId()+"' ");
 				}
-				updatePanel(query);
+				if(!mode.equals("All") && jtf.getText().equals("")) {
+					showNoInputError();
+				}
+				else {
+					switch(mode) {
+					case "All":
+						break;
+					case "User Name":
+						query.append("and users.uname='"+jtf.getText()+"';");
+						break;
+					case "User ID":
+						query.append("and borrow.uid='"+jtf.getText()+"';");
+						break;
+					case "Book Name":
+						query.append("and books.bname='"+jtf.getText()+"';");
+						break;
+					case "Book ID" :
+						query.append("and borrow.bid='"+jtf.getText()+"';");
+						break;
+					case "Date":
+						query.append("and borrow.time='"+jtf.getText()+"';");
+						break;
+					}
+					updatePanel(query.toString());
+				}
 			}
 		});
 		
@@ -301,9 +289,78 @@ public class ShowBooks {
 					case 3:
 						jtf.setEditable(true);
 						break;
+					case 4:
+						jtf.setEditable(true);
+						break;
+					case 5:
+						jtf.setEditable(true);
+						break;
 					}
 				}
 			}
+		});   
+	}
+	
+	public void showNoInputError() {
+		final JDialog jd = new JDialog(MainClass.mp.jf);
+		jd.setTitle("Input Error");
+		jd.setSize(350,160);
+        Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd.setLocation((scr.width-jd.getWidth())/2,(scr.height-jd.getHeight())/2);  
+        jd.setVisible(true);
+        jd.setLayout(null);
+        
+        JLabel jl = new JLabel("Please input some information!",JLabel.CENTER);
+        JButton jb = new JButton("Conform");
+        
+        jb.setSize(120,30);
+        jb.setLocation(jd.getWidth()/2-jb.getWidth()/2,80);
+        jl.setSize(300,30);
+        jl.setLocation(jd.getWidth()/2-jl.getWidth()/2, 30);
+        
+        jl.setFont(new Font("consolas",Font.PLAIN,19));
+        jb.setFont(new Font("consolas",Font.PLAIN,19));
+        
+        jd.add(jb);
+        jd.add(jl);
+        
+        jb.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jd.dispose();
+        	}
+        });
+	}
+	//显示提示窗口
+	private void showPrompt(final String uid,final String bid,final String date ) {
+		final JDialog jd_prompt=new JDialog(MainPage.jf,"Prompt");
+		jd_prompt.setVisible(true);
+		jd_prompt.setSize(700,150);
+		Dimension scr=Toolkit.getDefaultToolkit().getScreenSize();  
+        jd_prompt.setLocation((scr.width-jd_prompt.getWidth())/2,(scr.height-jd_prompt.getHeight())/2);   
+		Container con=jd_prompt.getContentPane();
+		con.setLayout(null);
+		
+		JLabel jl_prompt=new JLabel("Are you sure to delete this Record?");
+		jl_prompt.setFont(new Font("consolas",Font.PLAIN,19));
+		JPanel jp_prompt=new JPanel();
+		jp_prompt.setBounds(0,20,700,30);
+		jp_prompt.add(jl_prompt);
+		con.add(jp_prompt);
+		
+		JButton jb_confirm=new JButton("Confirm");
+		jb_confirm.setFont(new Font("consolas",Font.PLAIN,19));
+		jb_confirm.setBounds((jd_prompt.getWidth()-120)/2, 60, 120, 30);
+		con.add(jb_confirm);
+		
+		jb_confirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//删除该用户
+				MainClass.db.dbUpdate("delete from borrow where uid="+uid+" and bid="+bid+" and date="+date);
+				StringBuffer query=new StringBuffer("select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid ");
+				updatePanel(query.toString());
+				jd_prompt.dispose();
+			}
 		});
 	}
+	
 }

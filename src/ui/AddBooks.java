@@ -188,7 +188,7 @@ public class AddBooks {
 		jtf_num.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_num.setBounds(startWidth+130,startHeight+160,300,30);
 		jb_add.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_add.setBounds((width-120)/2,startHeight+220,120,30);
+		jb_add.setBounds((width-140)/2,startHeight+220,140,30);
 		
 		jp_addBooks.add(jl_name);
 		jp_addBooks.add(jl_author);
