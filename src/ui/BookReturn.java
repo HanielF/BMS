@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
-public class DeleteBorrow {
+public class BookReturn {
 	private JLabel jl_hint;
 	private JComboBox<String> jcb;
 	private JTextField jtf;
@@ -30,7 +32,7 @@ public class DeleteBorrow {
 	
 	private Vector rowData,columnNames;	
 	
-	public DeleteBorrow() {
+	public BookReturn() {
 		initVec();
 		initTable();
 		jsp = new JScrollPane(jt);
@@ -65,6 +67,7 @@ public class DeleteBorrow {
 		columnNames.add("Book Name");
 		columnNames.add("Book ID");
 		columnNames.add("Time");
+		columnNames.add("Operation");
 		}
 	
 	//调用setTable()
@@ -84,10 +87,10 @@ public class DeleteBorrow {
 		jt.setRowHeight(27);
 		jt.setLocation(0,0);
 		jt.setVisible(true);
-		jt.setEnabled(false);
 		
-		jt.getColumnModel().getColumn(3).setPreferredWidth(185);
+		jt.getColumnModel().getColumn(3).setPreferredWidth(190);
 		setTableColumnCenter(jt);
+		setOperationColor(jt);
 	}
 	
 	//设置表格内容居中及字体
@@ -119,7 +122,8 @@ public class DeleteBorrow {
 		TableColumn tableColumn = table.getColumn("Operation");   
         DefaultTableCellRenderer cellRanderer = new DefaultTableCellRenderer(); 
         cellRanderer.setHorizontalAlignment(JLabel.CENTER);
-        cellRanderer.setForeground(Color.RED);  
+        cellRanderer.setForeground(Color.RED);
+        cellRanderer.setFont(new Font("consolas",Font.PLAIN,18));
         tableColumn.setCellRenderer(cellRanderer);
 	}
 	
@@ -164,6 +168,7 @@ public class DeleteBorrow {
 				tmp.add(map.get("bname"));
 				tmp.add(map.get("bid"));
 				tmp.add(map.get("time"));
+				tmp.add("Delete");
 				rowData.add(tmp);
 			}
 		} catch (Exception e) {
@@ -216,6 +221,19 @@ public class DeleteBorrow {
 	}
 	
 	public void addListener() {
+		jt.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int row=jt.getSelectedRow();
+				int column = jt.getSelectedColumn();
+				if (column==4) {
+					String uid=String.valueOf(jt.getValueAt(row,0));
+					String bid=String.valueOf(jt.getValueAt(row,2));
+					String time=String.valueOf(jt.getValueAt(row,3));
+					showPrompt(uid,bid,time);
+				}
+			}
+		});
+		
 		jb_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				String mode = (String)jcb.getSelectedItem();
@@ -331,7 +349,7 @@ public class DeleteBorrow {
         });
 	}
 	//显示提示窗口
-	private void showPrompt(final String uid,final String bid,final String date ) {
+	private void showPrompt(final String uid,final String bid,final String time ) {
 		final JDialog jd_prompt=new JDialog(MainPage.jf,"Prompt");
 		jd_prompt.setVisible(true);
 		jd_prompt.setSize(700,150);
@@ -355,7 +373,7 @@ public class DeleteBorrow {
 		jb_confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//删除该用户
-				MainClass.db.dbUpdate("delete from borrow where uid="+uid+" and bid="+bid+" and date="+date);
+				MainClass.db.dbUpdate("delete from borrow where uid='"+uid+"' and bid='"+bid+"' and time='"+time+"'");
 				StringBuffer query=new StringBuffer("select users.uid,books.bname,books.bid,borrow.time from users,books,borrow where users.uid=borrow.uid and books.bid=borrow.bid ");
 				updatePanel(query.toString());
 				jd_prompt.dispose();
