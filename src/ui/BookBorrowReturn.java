@@ -186,17 +186,24 @@ public class BookBorrowReturn {
 		jl_bid.setBounds(startWidth,startHeight+40,100,30);
 		jtf_bid.setFont(new Font("consolas",Font.PLAIN,19));
 		jtf_bid.setBounds(startWidth+100,startHeight+40,300,30);
-		jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_borrow.setBounds((width-280)/2,startHeight+100,120,30);
-		jb_return.setFont(new Font("consolas",Font.PLAIN,19));
-		jb_return.setBounds((width-280)/2+160,startHeight+100,120,30);
+		if (MainClass.db.getIs_manager()==0) {
+			jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
+			jb_borrow.setBounds((width-280)/2,startHeight+100,120,30);
+			jb_return.setFont(new Font("consolas",Font.PLAIN,19));
+			jb_return.setBounds((width-280)/2+160,startHeight+100,120,30);
+			jp_bor_ret.add(jb_borrow);
+			jp_bor_ret.add(jb_return);
+		}
+		else {
+			jb_borrow.setFont(new Font("consolas",Font.PLAIN,19));
+			jb_borrow.setBounds((width-120)/2,startHeight+100,120,30);
+			jp_bor_ret.add(jb_borrow);
+		}
 		
 		jp_bor_ret.add(jl_uid);
 		jp_bor_ret.add(jtf_uid);
 		jp_bor_ret.add(jl_bid);
 		jp_bor_ret.add(jtf_bid);
-		jp_bor_ret.add(jb_borrow);
-		jp_bor_ret.add(jb_return);
 		
 		jtf_uid.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {
@@ -207,7 +214,9 @@ public class BookBorrowReturn {
         	}
         });
 		jb_borrow.addActionListener(new BorrowActionListener());
-		jb_return.addActionListener(new ReturnActionListener());
+		if (MainClass.db.getIs_manager()==0) {
+			jb_return.addActionListener(new ReturnActionListener());
+		}
 		
 		jp_bor_ret.setVisible(true);
 	}

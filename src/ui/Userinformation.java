@@ -14,7 +14,7 @@ public class Userinformation{
 		    {
 		        Toolkit tool = this.getToolkit();
 		        //Image image = tool.getImage("F:\\文档\\GitHub\\BMS\\source\\headPicture.png");
-		        Image image = tool.getImage("./source/back.jpg");
+		        Image image = tool.getImage("./source/headPicture.png");
 		        g.drawImage(image, 0, 0, 100, 100, this);
 	     }
 	};
@@ -23,9 +23,9 @@ public class Userinformation{
 	public Userinformation() {
 		panel = new JPanel() {
             protected void paintComponent(Graphics g) {    
-                ImageIcon icon = new ImageIcon("./source/background.jpg");    
+                ImageIcon icon = new ImageIcon("./source/background4.jpg");    
                 Image img = icon.getImage();    
-                g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());    
+                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), icon.getImageObserver());    
             }    
 		};
 		imagePanel.setBackground(null);
@@ -52,7 +52,7 @@ public class Userinformation{
 		imagePanel.setBounds((width-100)/2,50,100,100);
 		panel.add(imagePanel);
 		
-		int startWidth=(width-300)/2;
+		int startWidth=(width-300)/2+20;
 		int startHeight=(height-190)/2;
         
 		ID=new JLabel("User ID:");
